@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+jan to may police violation_anonymized791b166.csv
+jan to may police violation_anonymized791b166.csv
+
+# Data files
+*.csv
+*.parquet
+.env
