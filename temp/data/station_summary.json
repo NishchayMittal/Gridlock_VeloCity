@@ -1,0 +1,2291 @@
+[
+  {
+    "police_station": "Upparpet",
+    "total_violations": 34468,
+    "not_sent_to_scita": 4861,
+    "gap_percentage": 14.1,
+    "avg_response_time_hrs": 5.93,
+    "top_vehicle_types": {
+      "CAR": 11820,
+      "SCOOTER": 10875,
+      "MOTOR CYCLE": 3984,
+      "PASSENGER AUTO": 3787,
+      "MAXI-CAB": 991
+    },
+    "peak_hours": {
+      "3": 4748,
+      "4": 4046,
+      "5": 3343
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Shivajinagar",
+    "total_violations": 28044,
+    "not_sent_to_scita": 2640,
+    "gap_percentage": 9.41,
+    "avg_response_time_hrs": 6.95,
+    "top_vehicle_types": {
+      "SCOOTER": 9424,
+      "PASSENGER AUTO": 8889,
+      "CAR": 5874,
+      "MOTOR CYCLE": 2759,
+      "MAXI-CAB": 423
+    },
+    "peak_hours": {
+      "5": 4729,
+      "4": 4282,
+      "3": 3480
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Malleshwaram",
+    "total_violations": 22200,
+    "not_sent_to_scita": 3322,
+    "gap_percentage": 14.96,
+    "avg_response_time_hrs": 6.02,
+    "top_vehicle_types": {
+      "CAR": 10544,
+      "SCOOTER": 4927,
+      "PASSENGER AUTO": 2968,
+      "MOTOR CYCLE": 2553,
+      "MAXI-CAB": 551
+    },
+    "peak_hours": {
+      "2": 2985,
+      "4": 2912,
+      "5": 2802
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "HAL Old Airport",
+    "total_violations": 20819,
+    "not_sent_to_scita": 2738,
+    "gap_percentage": 13.15,
+    "avg_response_time_hrs": 3.8,
+    "top_vehicle_types": {
+      "SCOOTER": 5926,
+      "CAR": 5298,
+      "MOTOR CYCLE": 3653,
+      "PASSENGER AUTO": 2153,
+      "MAXI-CAB": 2028
+    },
+    "peak_hours": {
+      "22": 2810,
+      "23": 2802,
+      "0": 2340
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 1,
+        "crs": 0.1464,
+        "violation_count": 40674,
+        "centroid_lat": 12.960207,
+        "centroid_lng": 77.692366
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 98,
+        "crs": 0.1041,
+        "violation_count": 31,
+        "centroid_lat": 12.950108,
+        "centroid_lng": 77.689734
+      },
+      {
+        "cluster_id": 86,
+        "crs": 0.0119,
+        "violation_count": 15,
+        "centroid_lat": 12.918631,
+        "centroid_lng": 77.6868
+      },
+      {
+        "cluster_id": 103,
+        "crs": 0.0577,
+        "violation_count": 10,
+        "centroid_lat": 12.954835,
+        "centroid_lng": 77.680195
+      }
+    ]
+  },
+  {
+    "police_station": "City Market",
+    "total_violations": 17646,
+    "not_sent_to_scita": 2429,
+    "gap_percentage": 13.77,
+    "avg_response_time_hrs": 9.43,
+    "top_vehicle_types": {
+      "SCOOTER": 7308,
+      "PASSENGER AUTO": 3283,
+      "CAR": 2185,
+      "MOTOR CYCLE": 1926,
+      "LGV": 1441
+    },
+    "peak_hours": {
+      "19": 2057,
+      "4": 1786,
+      "3": 1546
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Vijayanagara",
+    "total_violations": 14652,
+    "not_sent_to_scita": 1172,
+    "gap_percentage": 8.0,
+    "avg_response_time_hrs": 6.04,
+    "top_vehicle_types": {
+      "SCOOTER": 7404,
+      "CAR": 3170,
+      "MOTOR CYCLE": 3143,
+      "PASSENGER AUTO": 438,
+      "LGV": 113
+    },
+    "peak_hours": {
+      "5": 1915,
+      "23": 1595,
+      "4": 1577
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Rajajinagar",
+    "total_violations": 10998,
+    "not_sent_to_scita": 1880,
+    "gap_percentage": 17.09,
+    "avg_response_time_hrs": 12.69,
+    "top_vehicle_types": {
+      "SCOOTER": 3641,
+      "CAR": 3312,
+      "MOTOR CYCLE": 1377,
+      "PASSENGER AUTO": 660,
+      "LGV": 487
+    },
+    "peak_hours": {
+      "5": 1434,
+      "22": 1371,
+      "21": 1342
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Kodigehalli",
+    "total_violations": 10916,
+    "not_sent_to_scita": 4941,
+    "gap_percentage": 45.26,
+    "avg_response_time_hrs": 4.03,
+    "top_vehicle_types": {
+      "SCOOTER": 4398,
+      "CAR": 2889,
+      "MOTOR CYCLE": 2651,
+      "PASSENGER AUTO": 401,
+      "LGV": 159
+    },
+    "peak_hours": {
+      "6": 1989,
+      "5": 1951,
+      "4": 978
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 99,
+        "crs": 0.1042,
+        "violation_count": 42,
+        "centroid_lat": 13.067851,
+        "centroid_lng": 77.580407
+      }
+    ]
+  },
+  {
+    "police_station": "Magadi Road",
+    "total_violations": 8558,
+    "not_sent_to_scita": 775,
+    "gap_percentage": 9.06,
+    "avg_response_time_hrs": 5.76,
+    "top_vehicle_types": {
+      "SCOOTER": 4408,
+      "MOTOR CYCLE": 1365,
+      "CAR": 1170,
+      "PASSENGER AUTO": 816,
+      "LGV": 213
+    },
+    "peak_hours": {
+      "6": 1340,
+      "5": 1268,
+      "22": 832
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Jeevanbheemanagar",
+    "total_violations": 6736,
+    "not_sent_to_scita": 733,
+    "gap_percentage": 10.88,
+    "avg_response_time_hrs": 10.68,
+    "top_vehicle_types": {
+      "CAR": 2573,
+      "SCOOTER": 1490,
+      "MOTOR CYCLE": 989,
+      "PASSENGER AUTO": 814,
+      "MAXI-CAB": 565
+    },
+    "peak_hours": {
+      "2": 885,
+      "3": 684,
+      "1": 677
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "K.R. Pura",
+    "total_violations": 6546,
+    "not_sent_to_scita": 942,
+    "gap_percentage": 14.39,
+    "avg_response_time_hrs": 8.65,
+    "top_vehicle_types": {
+      "CAR": 1833,
+      "SCOOTER": 1680,
+      "PASSENGER AUTO": 1243,
+      "MOTOR CYCLE": 811,
+      "LGV": 302
+    },
+    "peak_hours": {
+      "19": 1042,
+      "18": 707,
+      "5": 684
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 1,
+        "crs": 0.1464,
+        "violation_count": 40674,
+        "centroid_lat": 12.960207,
+        "centroid_lng": 77.692366
+      },
+      {
+        "cluster_id": 21,
+        "crs": 0.0458,
+        "violation_count": 228,
+        "centroid_lat": 13.045834,
+        "centroid_lng": 77.75028
+      },
+      {
+        "cluster_id": 25,
+        "crs": 0.0802,
+        "violation_count": 108,
+        "centroid_lat": 13.035384,
+        "centroid_lng": 77.735211
+      },
+      {
+        "cluster_id": 97,
+        "crs": 0.067,
+        "violation_count": 107,
+        "centroid_lat": 13.054317,
+        "centroid_lng": 77.762998
+      },
+      {
+        "cluster_id": 49,
+        "crs": 0.0466,
+        "violation_count": 96,
+        "centroid_lat": 13.018737,
+        "centroid_lng": 77.70688
+      }
+    ]
+  },
+  {
+    "police_station": "Halasuru Gate",
+    "total_violations": 6294,
+    "not_sent_to_scita": 622,
+    "gap_percentage": 9.88,
+    "avg_response_time_hrs": 9.27,
+    "top_vehicle_types": {
+      "SCOOTER": 2135,
+      "CAR": 1437,
+      "PASSENGER AUTO": 808,
+      "MOTOR CYCLE": 780,
+      "LGV": 449
+    },
+    "peak_hours": {
+      "4": 954,
+      "5": 881,
+      "3": 630
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Mahadevapura",
+    "total_violations": 6187,
+    "not_sent_to_scita": 972,
+    "gap_percentage": 15.71,
+    "avg_response_time_hrs": 9.9,
+    "top_vehicle_types": {
+      "CAR": 1894,
+      "PASSENGER AUTO": 1460,
+      "SCOOTER": 942,
+      "MOTOR CYCLE": 665,
+      "MAXI-CAB": 552
+    },
+    "peak_hours": {
+      "5": 711,
+      "6": 645,
+      "4": 589
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 1,
+        "crs": 0.1464,
+        "violation_count": 40674,
+        "centroid_lat": 12.960207,
+        "centroid_lng": 77.692366
+      },
+      {
+        "cluster_id": 16,
+        "crs": 0.2153,
+        "violation_count": 766,
+        "centroid_lat": 12.987044,
+        "centroid_lng": 77.733686
+      },
+      {
+        "cluster_id": 9,
+        "crs": 0.0673,
+        "violation_count": 277,
+        "centroid_lat": 13.007823,
+        "centroid_lng": 77.758371
+      },
+      {
+        "cluster_id": 80,
+        "crs": 0.1664,
+        "violation_count": 65,
+        "centroid_lat": 12.989002,
+        "centroid_lng": 77.688744
+      },
+      {
+        "cluster_id": 51,
+        "crs": 0.048,
+        "violation_count": 148,
+        "centroid_lat": 13.003463,
+        "centroid_lng": 77.723496
+      }
+    ]
+  },
+  {
+    "police_station": "Chikkajala",
+    "total_violations": 5834,
+    "not_sent_to_scita": 519,
+    "gap_percentage": 8.9,
+    "avg_response_time_hrs": 2.48,
+    "top_vehicle_types": {
+      "CAR": 3865,
+      "MAXI-CAB": 1606,
+      "SCOOTER": 99,
+      "MOTOR CYCLE": 96,
+      "LGV": 44
+    },
+    "peak_hours": {
+      "23": 745,
+      "19": 652,
+      "22": 520
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 5,
+        "crs": 0.1171,
+        "violation_count": 5124,
+        "centroid_lat": 13.185469,
+        "centroid_lng": 77.680524
+      },
+      {
+        "cluster_id": 20,
+        "crs": 0.0511,
+        "violation_count": 969,
+        "centroid_lat": 13.19117,
+        "centroid_lng": 77.646145
+      },
+      {
+        "cluster_id": 29,
+        "crs": 0.0991,
+        "violation_count": 1935,
+        "centroid_lat": 13.104269,
+        "centroid_lng": 77.605823
+      },
+      {
+        "cluster_id": 85,
+        "crs": 0.0764,
+        "violation_count": 139,
+        "centroid_lat": 13.143383,
+        "centroid_lng": 77.617833
+      },
+      {
+        "cluster_id": 113,
+        "crs": 0.0588,
+        "violation_count": 29,
+        "centroid_lat": 13.16128,
+        "centroid_lng": 77.626529
+      }
+    ]
+  },
+  {
+    "police_station": "HSR Layout",
+    "total_violations": 5018,
+    "not_sent_to_scita": 713,
+    "gap_percentage": 14.21,
+    "avg_response_time_hrs": 13.47,
+    "top_vehicle_types": {
+      "SCOOTER": 1506,
+      "CAR": 1463,
+      "MOTOR CYCLE": 1085,
+      "LGV": 345,
+      "PASSENGER AUTO": 174
+    },
+    "peak_hours": {
+      "5": 794,
+      "7": 718,
+      "6": 711
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 57,
+        "crs": 0.0432,
+        "violation_count": 51,
+        "centroid_lat": 12.90013,
+        "centroid_lng": 77.648863
+      },
+      {
+        "cluster_id": 70,
+        "crs": 0.0649,
+        "violation_count": 143,
+        "centroid_lat": 12.897694,
+        "centroid_lng": 77.658709
+      },
+      {
+        "cluster_id": 119,
+        "crs": 0.0096,
+        "violation_count": 37,
+        "centroid_lat": 12.887456,
+        "centroid_lng": 77.649296
+      }
+    ]
+  },
+  {
+    "police_station": "Bellandur",
+    "total_violations": 4964,
+    "not_sent_to_scita": 758,
+    "gap_percentage": 15.27,
+    "avg_response_time_hrs": 13.1,
+    "top_vehicle_types": {
+      "CAR": 1581,
+      "MAXI-CAB": 1030,
+      "SCOOTER": 831,
+      "PASSENGER AUTO": 661,
+      "MOTOR CYCLE": 584
+    },
+    "peak_hours": {
+      "23": 557,
+      "0": 513,
+      "21": 498
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 1,
+        "crs": 0.1464,
+        "violation_count": 40674,
+        "centroid_lat": 12.960207,
+        "centroid_lng": 77.692366
+      },
+      {
+        "cluster_id": 70,
+        "crs": 0.0649,
+        "violation_count": 143,
+        "centroid_lat": 12.897694,
+        "centroid_lng": 77.658709
+      },
+      {
+        "cluster_id": 94,
+        "crs": 0.025,
+        "violation_count": 29,
+        "centroid_lat": 12.915536,
+        "centroid_lng": 77.698702
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 33,
+        "crs": 0.06,
+        "violation_count": 28,
+        "centroid_lat": 12.890041,
+        "centroid_lng": 77.669806
+      }
+    ]
+  },
+  {
+    "police_station": "High ground",
+    "total_violations": 4951,
+    "not_sent_to_scita": 701,
+    "gap_percentage": 14.16,
+    "avg_response_time_hrs": 6.69,
+    "top_vehicle_types": {
+      "SCOOTER": 2651,
+      "CAR": 1213,
+      "MOTOR CYCLE": 551,
+      "PASSENGER AUTO": 252,
+      "MAXI-CAB": 143
+    },
+    "peak_hours": {
+      "22": 900,
+      "21": 668,
+      "2": 641
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Byatarayanapura",
+    "total_violations": 4555,
+    "not_sent_to_scita": 376,
+    "gap_percentage": 8.25,
+    "avg_response_time_hrs": 7.69,
+    "top_vehicle_types": {
+      "SCOOTER": 1712,
+      "CAR": 823,
+      "MOTOR CYCLE": 809,
+      "PASSENGER AUTO": 477,
+      "MAXI-CAB": 141
+    },
+    "peak_hours": {
+      "6": 739,
+      "5": 519,
+      "4": 424
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Electronic City",
+    "total_violations": 4333,
+    "not_sent_to_scita": 835,
+    "gap_percentage": 19.27,
+    "avg_response_time_hrs": 20.13,
+    "top_vehicle_types": {
+      "SCOOTER": 1432,
+      "MOTOR CYCLE": 1102,
+      "CAR": 997,
+      "LGV": 255,
+      "PASSENGER AUTO": 146
+    },
+    "peak_hours": {
+      "7": 1034,
+      "6": 651,
+      "8": 466
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 4,
+        "crs": 0.1138,
+        "violation_count": 2135,
+        "centroid_lat": 12.84184,
+        "centroid_lng": 77.646073
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 23,
+        "crs": 0.113,
+        "violation_count": 780,
+        "centroid_lat": 12.832368,
+        "centroid_lng": 77.681214
+      },
+      {
+        "cluster_id": 100,
+        "crs": 0.3005,
+        "violation_count": 121,
+        "centroid_lat": 12.850804,
+        "centroid_lng": 77.657471
+      },
+      {
+        "cluster_id": 107,
+        "crs": 0.0728,
+        "violation_count": 120,
+        "centroid_lat": 12.855132,
+        "centroid_lng": 77.663926
+      }
+    ]
+  },
+  {
+    "police_station": "Pulikeshinagar(F.Town)",
+    "total_violations": 4136,
+    "not_sent_to_scita": 391,
+    "gap_percentage": 9.45,
+    "avg_response_time_hrs": 10.67,
+    "top_vehicle_types": {
+      "SCOOTER": 1633,
+      "CAR": 1400,
+      "PASSENGER AUTO": 489,
+      "MOTOR CYCLE": 406,
+      "LGV": 84
+    },
+    "peak_hours": {
+      "21": 737,
+      "22": 620,
+      "6": 552
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Halasur",
+    "total_violations": 4011,
+    "not_sent_to_scita": 515,
+    "gap_percentage": 12.84,
+    "avg_response_time_hrs": 11.78,
+    "top_vehicle_types": {
+      "CAR": 1550,
+      "PASSENGER AUTO": 748,
+      "SCOOTER": 616,
+      "MAXI-CAB": 577,
+      "MOTOR CYCLE": 310
+    },
+    "peak_hours": {
+      "23": 781,
+      "22": 663,
+      "2": 412
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Jayanagara",
+    "total_violations": 3813,
+    "not_sent_to_scita": 563,
+    "gap_percentage": 14.77,
+    "avg_response_time_hrs": 10.33,
+    "top_vehicle_types": {
+      "CAR": 1538,
+      "SCOOTER": 1394,
+      "MOTOR CYCLE": 466,
+      "PASSENGER AUTO": 151,
+      "BUS (BMTC/KSRTC)": 77
+    },
+    "peak_hours": {
+      "3": 495,
+      "2": 403,
+      "4": 391
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 65,
+        "crs": 0.0183,
+        "violation_count": 108,
+        "centroid_lat": 12.938217,
+        "centroid_lng": 77.592627
+      }
+    ]
+  },
+  {
+    "police_station": "Chamarajpet",
+    "total_violations": 3795,
+    "not_sent_to_scita": 544,
+    "gap_percentage": 14.33,
+    "avg_response_time_hrs": 7.65,
+    "top_vehicle_types": {
+      "PASSENGER AUTO": 1863,
+      "CAR": 530,
+      "SCOOTER": 522,
+      "LGV": 454,
+      "GOODS AUTO": 139
+    },
+    "peak_hours": {
+      "2": 528,
+      "21": 391,
+      "5": 319
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Banaswadi",
+    "total_violations": 3759,
+    "not_sent_to_scita": 368,
+    "gap_percentage": 9.79,
+    "avg_response_time_hrs": 13.31,
+    "top_vehicle_types": {
+      "CAR": 996,
+      "SCOOTER": 964,
+      "PASSENGER AUTO": 774,
+      "MOTOR CYCLE": 504,
+      "BUS (BMTC/KSRTC)": 143
+    },
+    "peak_hours": {
+      "1": 488,
+      "19": 341,
+      "4": 335
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 1,
+        "crs": 0.1464,
+        "violation_count": 40674,
+        "centroid_lat": 12.960207,
+        "centroid_lng": 77.692366
+      },
+      {
+        "cluster_id": 28,
+        "crs": 0.092,
+        "violation_count": 451,
+        "centroid_lat": 13.022357,
+        "centroid_lng": 77.644473
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 68,
+        "crs": 0.1991,
+        "violation_count": 134,
+        "centroid_lat": 13.005825,
+        "centroid_lng": 77.661449
+      },
+      {
+        "cluster_id": 74,
+        "crs": 0.058,
+        "violation_count": 82,
+        "centroid_lat": 13.013022,
+        "centroid_lng": 77.626417
+      }
+    ]
+  },
+  {
+    "police_station": "Basavanagudi",
+    "total_violations": 3604,
+    "not_sent_to_scita": 634,
+    "gap_percentage": 17.59,
+    "avg_response_time_hrs": 5.32,
+    "top_vehicle_types": {
+      "SCOOTER": 1604,
+      "CAR": 1265,
+      "MOTOR CYCLE": 384,
+      "PASSENGER AUTO": 222,
+      "LGV": 61
+    },
+    "peak_hours": {
+      "5": 480,
+      "23": 412,
+      "22": 410
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 44,
+        "crs": 0.0922,
+        "violation_count": 18,
+        "centroid_lat": 12.948162,
+        "centroid_lng": 77.559201
+      }
+    ]
+  },
+  {
+    "police_station": "Ashok Nagar",
+    "total_violations": 3524,
+    "not_sent_to_scita": 547,
+    "gap_percentage": 15.52,
+    "avg_response_time_hrs": 10.68,
+    "top_vehicle_types": {
+      "SCOOTER": 1536,
+      "CAR": 766,
+      "MOTOR CYCLE": 744,
+      "PASSENGER AUTO": 240,
+      "MAXI-CAB": 57
+    },
+    "peak_hours": {
+      "22": 684,
+      "23": 424,
+      "0": 324
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 37,
+        "crs": 0.095,
+        "violation_count": 99,
+        "centroid_lat": 12.95159,
+        "centroid_lng": 77.623291
+      },
+      {
+        "cluster_id": 31,
+        "crs": 0.0346,
+        "violation_count": 26,
+        "centroid_lat": 12.939617,
+        "centroid_lng": 77.632082
+      }
+    ]
+  },
+  {
+    "police_station": "Adugodi",
+    "total_violations": 3332,
+    "not_sent_to_scita": 509,
+    "gap_percentage": 15.28,
+    "avg_response_time_hrs": 11.09,
+    "top_vehicle_types": {
+      "CAR": 1274,
+      "SCOOTER": 1043,
+      "MOTOR CYCLE": 571,
+      "PASSENGER AUTO": 201,
+      "MAXI-CAB": 114
+    },
+    "peak_hours": {
+      "6": 347,
+      "5": 344,
+      "22": 308
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 37,
+        "crs": 0.095,
+        "violation_count": 99,
+        "centroid_lat": 12.95159,
+        "centroid_lng": 77.623291
+      }
+    ]
+  },
+  {
+    "police_station": "Cubbon Park",
+    "total_violations": 3255,
+    "not_sent_to_scita": 691,
+    "gap_percentage": 21.23,
+    "avg_response_time_hrs": 12.48,
+    "top_vehicle_types": {
+      "CAR": 1361,
+      "SCOOTER": 904,
+      "MOTOR CYCLE": 503,
+      "PASSENGER AUTO": 229,
+      "MAXI-CAB": 98
+    },
+    "peak_hours": {
+      "5": 433,
+      "2": 362,
+      "6": 298
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Hebbala",
+    "total_violations": 3209,
+    "not_sent_to_scita": 908,
+    "gap_percentage": 28.3,
+    "avg_response_time_hrs": 6.39,
+    "top_vehicle_types": {
+      "SCOOTER": 1259,
+      "MOTOR CYCLE": 765,
+      "CAR": 674,
+      "PASSENGER AUTO": 371,
+      "MAXI-CAB": 52
+    },
+    "peak_hours": {
+      "5": 398,
+      "22": 394,
+      "23": 364
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 61,
+        "crs": 0.0614,
+        "violation_count": 26,
+        "centroid_lat": 13.072322,
+        "centroid_lng": 77.604907
+      },
+      {
+        "cluster_id": 26,
+        "crs": 0.0675,
+        "violation_count": 789,
+        "centroid_lat": 13.034735,
+        "centroid_lng": 77.624148
+      },
+      {
+        "cluster_id": 120,
+        "crs": 0.0096,
+        "violation_count": 12,
+        "centroid_lat": 13.044621,
+        "centroid_lng": 77.601042
+      }
+    ]
+  },
+  {
+    "police_station": "Wilson Garden",
+    "total_violations": 3108,
+    "not_sent_to_scita": 584,
+    "gap_percentage": 18.79,
+    "avg_response_time_hrs": 5.66,
+    "top_vehicle_types": {
+      "SCOOTER": 1177,
+      "CAR": 1026,
+      "MOTOR CYCLE": 352,
+      "PASSENGER AUTO": 298,
+      "LGV": 48
+    },
+    "peak_hours": {
+      "5": 370,
+      "2": 363,
+      "4": 316
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 65,
+        "crs": 0.0183,
+        "violation_count": 108,
+        "centroid_lat": 12.938217,
+        "centroid_lng": 77.592627
+      }
+    ]
+  },
+  {
+    "police_station": "Sheshadripuram",
+    "total_violations": 3090,
+    "not_sent_to_scita": 352,
+    "gap_percentage": 11.39,
+    "avg_response_time_hrs": 13.82,
+    "top_vehicle_types": {
+      "CAR": 1308,
+      "SCOOTER": 910,
+      "MOTOR CYCLE": 374,
+      "PASSENGER AUTO": 290,
+      "LGV": 72
+    },
+    "peak_hours": {
+      "5": 450,
+      "3": 438,
+      "4": 393
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Mico Layout",
+    "total_violations": 2588,
+    "not_sent_to_scita": 338,
+    "gap_percentage": 13.06,
+    "avg_response_time_hrs": 12.68,
+    "top_vehicle_types": {
+      "SCOOTER": 1055,
+      "CAR": 552,
+      "MOTOR CYCLE": 460,
+      "MAXI-CAB": 181,
+      "PASSENGER AUTO": 173
+    },
+    "peak_hours": {
+      "6": 386,
+      "0": 325,
+      "21": 283
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 46,
+        "crs": 0.045,
+        "violation_count": 36,
+        "centroid_lat": 12.915407,
+        "centroid_lng": 77.615747
+      },
+      {
+        "cluster_id": 93,
+        "crs": 0.025,
+        "violation_count": 18,
+        "centroid_lat": 12.898049,
+        "centroid_lng": 77.606457
+      },
+      {
+        "cluster_id": 39,
+        "crs": 0.0821,
+        "violation_count": 990,
+        "centroid_lat": 12.881365,
+        "centroid_lng": 77.596706
+      }
+    ]
+  },
+  {
+    "police_station": "Yeshwanthpura",
+    "total_violations": 2587,
+    "not_sent_to_scita": 225,
+    "gap_percentage": 8.7,
+    "avg_response_time_hrs": 15.14,
+    "top_vehicle_types": {
+      "CAR": 782,
+      "SCOOTER": 545,
+      "MOTOR CYCLE": 443,
+      "PASSENGER AUTO": 358,
+      "LGV": 147
+    },
+    "peak_hours": {
+      "21": 264,
+      "5": 257,
+      "22": 232
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Yelahanka",
+    "total_violations": 2440,
+    "not_sent_to_scita": 162,
+    "gap_percentage": 6.64,
+    "avg_response_time_hrs": 5.02,
+    "top_vehicle_types": {
+      "SCOOTER": 782,
+      "CAR": 547,
+      "MOTOR CYCLE": 450,
+      "MAXI-CAB": 251,
+      "PASSENGER AUTO": 140
+    },
+    "peak_hours": {
+      "21": 400,
+      "20": 309,
+      "22": 271
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 29,
+        "crs": 0.0991,
+        "violation_count": 1935,
+        "centroid_lat": 13.104269,
+        "centroid_lng": 77.605823
+      },
+      {
+        "cluster_id": 48,
+        "crs": 0.0415,
+        "violation_count": 403,
+        "centroid_lat": 13.099086,
+        "centroid_lng": 77.58346
+      },
+      {
+        "cluster_id": 77,
+        "crs": 0.0322,
+        "violation_count": 53,
+        "centroid_lat": 13.081696,
+        "centroid_lng": 77.548261
+      },
+      {
+        "cluster_id": 56,
+        "crs": 0.0923,
+        "violation_count": 51,
+        "centroid_lat": 13.078999,
+        "centroid_lng": 77.559045
+      },
+      {
+        "cluster_id": 75,
+        "crs": 0.0637,
+        "violation_count": 49,
+        "centroid_lat": 13.116475,
+        "centroid_lng": 77.578116
+      }
+    ]
+  },
+  {
+    "police_station": "Hulimavu",
+    "total_violations": 2395,
+    "not_sent_to_scita": 372,
+    "gap_percentage": 15.53,
+    "avg_response_time_hrs": 7.15,
+    "top_vehicle_types": {
+      "CAR": 894,
+      "SCOOTER": 474,
+      "MOTOR CYCLE": 254,
+      "LORRY/GOODS VEHICLE": 209,
+      "LGV": 194
+    },
+    "peak_hours": {
+      "21": 480,
+      "20": 446,
+      "22": 269
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 39,
+        "crs": 0.0821,
+        "violation_count": 990,
+        "centroid_lat": 12.881365,
+        "centroid_lng": 77.596706
+      },
+      {
+        "cluster_id": 104,
+        "crs": 0.0457,
+        "violation_count": 59,
+        "centroid_lat": 12.876008,
+        "centroid_lng": 77.616541
+      },
+      {
+        "cluster_id": 32,
+        "crs": 0.0449,
+        "violation_count": 99,
+        "centroid_lat": 12.856069,
+        "centroid_lng": 77.588876
+      },
+      {
+        "cluster_id": 96,
+        "crs": 0.1283,
+        "violation_count": 26,
+        "centroid_lat": 12.891974,
+        "centroid_lng": 77.632024
+      }
+    ]
+  },
+  {
+    "police_station": "Whitefield",
+    "total_violations": 2303,
+    "not_sent_to_scita": 236,
+    "gap_percentage": 10.25,
+    "avg_response_time_hrs": 16.75,
+    "top_vehicle_types": {
+      "CAR": 703,
+      "SCOOTER": 565,
+      "MOTOR CYCLE": 436,
+      "MAXI-CAB": 150,
+      "PASSENGER AUTO": 122
+    },
+    "peak_hours": {
+      "2": 322,
+      "5": 269,
+      "4": 258
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 1,
+        "crs": 0.1464,
+        "violation_count": 40674,
+        "centroid_lat": 12.960207,
+        "centroid_lng": 77.692366
+      },
+      {
+        "cluster_id": 16,
+        "crs": 0.2153,
+        "violation_count": 766,
+        "centroid_lat": 12.987044,
+        "centroid_lng": 77.733686
+      },
+      {
+        "cluster_id": 42,
+        "crs": 0.0409,
+        "violation_count": 187,
+        "centroid_lat": 12.941048,
+        "centroid_lng": 77.7474
+      },
+      {
+        "cluster_id": 34,
+        "crs": 0.0458,
+        "violation_count": 174,
+        "centroid_lat": 12.896649,
+        "centroid_lng": 77.720051
+      },
+      {
+        "cluster_id": 112,
+        "crs": 0.3429,
+        "violation_count": 27,
+        "centroid_lat": 12.920504,
+        "centroid_lng": 77.736363
+      }
+    ]
+  },
+  {
+    "police_station": "R.T. Nagar",
+    "total_violations": 1736,
+    "not_sent_to_scita": 112,
+    "gap_percentage": 6.45,
+    "avg_response_time_hrs": 14.89,
+    "top_vehicle_types": {
+      "CAR": 769,
+      "SCOOTER": 445,
+      "MOTOR CYCLE": 205,
+      "PASSENGER AUTO": 135,
+      "LGV": 56
+    },
+    "peak_hours": {
+      "22": 214,
+      "5": 210,
+      "2": 163
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 24,
+        "crs": 0.0088,
+        "violation_count": 24,
+        "centroid_lat": 13.022622,
+        "centroid_lng": 77.60133
+      }
+    ]
+  },
+  {
+    "police_station": "J.P. Nagar",
+    "total_violations": 1637,
+    "not_sent_to_scita": 144,
+    "gap_percentage": 8.8,
+    "avg_response_time_hrs": 12.81,
+    "top_vehicle_types": {
+      "CAR": 655,
+      "SCOOTER": 497,
+      "MOTOR CYCLE": 201,
+      "PASSENGER AUTO": 104,
+      "GOODS AUTO": 78
+    },
+    "peak_hours": {
+      "21": 209,
+      "1": 170,
+      "6": 159
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 39,
+        "crs": 0.0821,
+        "violation_count": 990,
+        "centroid_lat": 12.881365,
+        "centroid_lng": 77.596706
+      },
+      {
+        "cluster_id": 22,
+        "crs": 0.063,
+        "violation_count": 128,
+        "centroid_lat": 12.894596,
+        "centroid_lng": 77.570043
+      },
+      {
+        "cluster_id": 89,
+        "crs": 0.0799,
+        "violation_count": 21,
+        "centroid_lat": 12.891487,
+        "centroid_lng": 77.581488
+      }
+    ]
+  },
+  {
+    "police_station": "Madiwala",
+    "total_violations": 1563,
+    "not_sent_to_scita": 189,
+    "gap_percentage": 12.09,
+    "avg_response_time_hrs": 26.78,
+    "top_vehicle_types": {
+      "CAR": 636,
+      "SCOOTER": 261,
+      "PASSENGER AUTO": 215,
+      "MOTOR CYCLE": 151,
+      "LGV": 56
+    },
+    "peak_hours": {
+      "5": 209,
+      "19": 206,
+      "4": 170
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 102,
+        "crs": 0.1197,
+        "violation_count": 11,
+        "centroid_lat": 12.895813,
+        "centroid_lng": 77.62606
+      },
+      {
+        "cluster_id": 46,
+        "crs": 0.045,
+        "violation_count": 36,
+        "centroid_lat": 12.915407,
+        "centroid_lng": 77.615747
+      }
+    ]
+  },
+  {
+    "police_station": "V.V.Puram (C.Pet)",
+    "total_violations": 1556,
+    "not_sent_to_scita": 167,
+    "gap_percentage": 10.73,
+    "avg_response_time_hrs": 7.4,
+    "top_vehicle_types": {
+      "SCOOTER": 552,
+      "CAR": 416,
+      "PASSENGER AUTO": 252,
+      "MOTOR CYCLE": 132,
+      "LGV": 103
+    },
+    "peak_hours": {
+      "21": 189,
+      "19": 158,
+      "4": 115
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  },
+  {
+    "police_station": "Sadashivanagar",
+    "total_violations": 1445,
+    "not_sent_to_scita": 242,
+    "gap_percentage": 16.75,
+    "avg_response_time_hrs": 7.77,
+    "top_vehicle_types": {
+      "CAR": 857,
+      "SCOOTER": 282,
+      "MOTOR CYCLE": 167,
+      "PASSENGER AUTO": 34,
+      "MAXI-CAB": 22
+    },
+    "peak_hours": {
+      "5": 241,
+      "6": 199,
+      "2": 182
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 63,
+        "crs": 0.0621,
+        "violation_count": 15,
+        "centroid_lat": 13.014525,
+        "centroid_lng": 77.574262
+      }
+    ]
+  },
+  {
+    "police_station": "Kamakshipalya",
+    "total_violations": 1431,
+    "not_sent_to_scita": 175,
+    "gap_percentage": 12.23,
+    "avg_response_time_hrs": 28.17,
+    "top_vehicle_types": {
+      "SCOOTER": 593,
+      "CAR": 332,
+      "MOTOR CYCLE": 290,
+      "PASSENGER AUTO": 114,
+      "LGV": 44
+    },
+    "peak_hours": {
+      "5": 253,
+      "6": 244,
+      "4": 147
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 6,
+        "crs": 0.0788,
+        "violation_count": 487,
+        "centroid_lat": 12.989581,
+        "centroid_lng": 77.503201
+      },
+      {
+        "cluster_id": 47,
+        "crs": 0.0637,
+        "violation_count": 127,
+        "centroid_lat": 12.986342,
+        "centroid_lng": 77.479938
+      },
+      {
+        "cluster_id": 35,
+        "crs": 0.175,
+        "violation_count": 66,
+        "centroid_lat": 12.999582,
+        "centroid_lng": 77.488769
+      },
+      {
+        "cluster_id": 122,
+        "crs": 0.1599,
+        "violation_count": 65,
+        "centroid_lat": 13.01418,
+        "centroid_lng": 77.491864
+      }
+    ]
+  },
+  {
+    "police_station": "Banashankari",
+    "total_violations": 1202,
+    "not_sent_to_scita": 214,
+    "gap_percentage": 17.8,
+    "avg_response_time_hrs": 15.81,
+    "top_vehicle_types": {
+      "SCOOTER": 615,
+      "MOTOR CYCLE": 206,
+      "CAR": 173,
+      "PASSENGER AUTO": 91,
+      "LGV": 34
+    },
+    "peak_hours": {
+      "21": 252,
+      "5": 188,
+      "22": 141
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 10,
+        "crs": 0.0677,
+        "violation_count": 439,
+        "centroid_lat": 12.926227,
+        "centroid_lng": 77.552779
+      },
+      {
+        "cluster_id": 108,
+        "crs": 0.1073,
+        "violation_count": 54,
+        "centroid_lat": 12.940924,
+        "centroid_lng": 77.548493
+      },
+      {
+        "cluster_id": 117,
+        "crs": 0.0673,
+        "violation_count": 27,
+        "centroid_lat": 12.91925,
+        "centroid_lng": 77.542129
+      },
+      {
+        "cluster_id": 111,
+        "crs": 0.1486,
+        "violation_count": 16,
+        "centroid_lat": 12.917984,
+        "centroid_lng": 77.56454
+      }
+    ]
+  },
+  {
+    "police_station": "Jalahalli",
+    "total_violations": 1160,
+    "not_sent_to_scita": 115,
+    "gap_percentage": 9.91,
+    "avg_response_time_hrs": 6.56,
+    "top_vehicle_types": {
+      "CAR": 388,
+      "SCOOTER": 378,
+      "MOTOR CYCLE": 222,
+      "PASSENGER AUTO": 41,
+      "OTHERS": 30
+    },
+    "peak_hours": {
+      "5": 241,
+      "21": 155,
+      "22": 136
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 11,
+        "crs": 0.085,
+        "violation_count": 441,
+        "centroid_lat": 13.0487,
+        "centroid_lng": 77.549704
+      },
+      {
+        "cluster_id": 55,
+        "crs": 0.0733,
+        "violation_count": 250,
+        "centroid_lat": 13.050495,
+        "centroid_lng": 77.525531
+      },
+      {
+        "cluster_id": 36,
+        "crs": 0.0538,
+        "violation_count": 218,
+        "centroid_lat": 13.057278,
+        "centroid_lng": 77.546938
+      },
+      {
+        "cluster_id": 69,
+        "crs": 0.0965,
+        "violation_count": 90,
+        "centroid_lat": 13.06855,
+        "centroid_lng": 77.530308
+      },
+      {
+        "cluster_id": 67,
+        "crs": 0.0209,
+        "violation_count": 77,
+        "centroid_lat": 13.055028,
+        "centroid_lng": 77.534848
+      }
+    ]
+  },
+  {
+    "police_station": "Jnanabharathi",
+    "total_violations": 1063,
+    "not_sent_to_scita": 77,
+    "gap_percentage": 7.24,
+    "avg_response_time_hrs": 15.8,
+    "top_vehicle_types": {
+      "CAR": 659,
+      "SCOOTER": 135,
+      "MOTOR CYCLE": 72,
+      "LGV": 60,
+      "PASSENGER AUTO": 39
+    },
+    "peak_hours": {
+      "6": 225,
+      "5": 174,
+      "7": 145
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 54,
+        "crs": 0.0557,
+        "violation_count": 98,
+        "centroid_lat": 12.940046,
+        "centroid_lng": 77.493491
+      },
+      {
+        "cluster_id": 121,
+        "crs": 0.1272,
+        "violation_count": 21,
+        "centroid_lat": 12.950332,
+        "centroid_lng": 77.498907
+      },
+      {
+        "cluster_id": 123,
+        "crs": 0.0361,
+        "violation_count": 20,
+        "centroid_lat": 12.948374,
+        "centroid_lng": 77.487453
+      }
+    ]
+  },
+  {
+    "police_station": "Peenya",
+    "total_violations": 974,
+    "not_sent_to_scita": 144,
+    "gap_percentage": 14.78,
+    "avg_response_time_hrs": 17.76,
+    "top_vehicle_types": {
+      "CAR": 257,
+      "SCOOTER": 171,
+      "PASSENGER AUTO": 164,
+      "MOTOR CYCLE": 128,
+      "BUS (BMTC/KSRTC)": 45
+    },
+    "peak_hours": {
+      "22": 137,
+      "6": 126,
+      "5": 113
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 3,
+        "crs": 0.0638,
+        "violation_count": 1679,
+        "centroid_lat": 13.046537,
+        "centroid_lng": 77.505603
+      },
+      {
+        "cluster_id": 8,
+        "crs": 0.034,
+        "violation_count": 73,
+        "centroid_lat": 13.010749,
+        "centroid_lng": 77.506319
+      },
+      {
+        "cluster_id": 76,
+        "crs": 0.1357,
+        "violation_count": 59,
+        "centroid_lat": 13.026724,
+        "centroid_lng": 77.519346
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 64,
+        "crs": 0.0382,
+        "violation_count": 15,
+        "centroid_lat": 13.024715,
+        "centroid_lng": 77.511065
+      }
+    ]
+  },
+  {
+    "police_station": "Hennuru",
+    "total_violations": 892,
+    "not_sent_to_scita": 304,
+    "gap_percentage": 34.08,
+    "avg_response_time_hrs": 46.68,
+    "top_vehicle_types": {
+      "CAR": 289,
+      "SCOOTER": 289,
+      "MOTOR CYCLE": 167,
+      "PASSENGER AUTO": 49,
+      "MAXI-CAB": 24
+    },
+    "peak_hours": {
+      "8": 127,
+      "5": 105,
+      "6": 84
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 45,
+        "crs": 0.1368,
+        "violation_count": 211,
+        "centroid_lat": 13.070484,
+        "centroid_lng": 77.631216
+      },
+      {
+        "cluster_id": 14,
+        "crs": 0.0536,
+        "violation_count": 190,
+        "centroid_lat": 13.059312,
+        "centroid_lng": 77.650348
+      },
+      {
+        "cluster_id": 59,
+        "crs": 0.26,
+        "violation_count": 162,
+        "centroid_lat": 13.047265,
+        "centroid_lng": 77.628322
+      },
+      {
+        "cluster_id": 27,
+        "crs": 0.104,
+        "violation_count": 114,
+        "centroid_lat": 13.084223,
+        "centroid_lng": 77.636601
+      },
+      {
+        "cluster_id": 28,
+        "crs": 0.092,
+        "violation_count": 451,
+        "centroid_lat": 13.022357,
+        "centroid_lng": 77.644473
+      }
+    ]
+  },
+  {
+    "police_station": "K.G. Halli",
+    "total_violations": 892,
+    "not_sent_to_scita": 93,
+    "gap_percentage": 10.43,
+    "avg_response_time_hrs": 13.63,
+    "top_vehicle_types": {
+      "CAR": 321,
+      "LGV": 133,
+      "SCOOTER": 114,
+      "HGV": 81,
+      "TEMPO": 73
+    },
+    "peak_hours": {
+      "21": 229,
+      "22": 154,
+      "23": 107
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 26,
+        "crs": 0.0675,
+        "violation_count": 789,
+        "centroid_lat": 13.034735,
+        "centroid_lng": 77.624148
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 118,
+        "crs": 0.112,
+        "violation_count": 35,
+        "centroid_lat": 13.02098,
+        "centroid_lng": 77.6133
+      },
+      {
+        "cluster_id": 92,
+        "crs": 0.0701,
+        "violation_count": 23,
+        "centroid_lat": 13.019125,
+        "centroid_lng": 77.618733
+      },
+      {
+        "cluster_id": 74,
+        "crs": 0.058,
+        "violation_count": 82,
+        "centroid_lat": 13.013022,
+        "centroid_lng": 77.626417
+      }
+    ]
+  },
+  {
+    "police_station": "Thalagattapura",
+    "total_violations": 870,
+    "not_sent_to_scita": 137,
+    "gap_percentage": 15.75,
+    "avg_response_time_hrs": 14.46,
+    "top_vehicle_types": {
+      "CAR": 340,
+      "SCOOTER": 218,
+      "MOTOR CYCLE": 111,
+      "PASSENGER AUTO": 102,
+      "LGV": 35
+    },
+    "peak_hours": {
+      "6": 195,
+      "5": 194,
+      "7": 99
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 2,
+        "crs": 0.0384,
+        "violation_count": 417,
+        "centroid_lat": 12.873051,
+        "centroid_lng": 77.540169
+      },
+      {
+        "cluster_id": 13,
+        "crs": 0.0988,
+        "violation_count": 405,
+        "centroid_lat": 12.888574,
+        "centroid_lng": 77.562603
+      },
+      {
+        "cluster_id": 32,
+        "crs": 0.0449,
+        "violation_count": 99,
+        "centroid_lat": 12.856069,
+        "centroid_lng": 77.588876
+      },
+      {
+        "cluster_id": 22,
+        "crs": 0.063,
+        "violation_count": 128,
+        "centroid_lat": 12.894596,
+        "centroid_lng": 77.570043
+      },
+      {
+        "cluster_id": 95,
+        "crs": 0.0341,
+        "violation_count": 21,
+        "centroid_lat": 12.872742,
+        "centroid_lng": 77.566212
+      }
+    ]
+  },
+  {
+    "police_station": "K.S. Layout",
+    "total_violations": 828,
+    "not_sent_to_scita": 148,
+    "gap_percentage": 17.87,
+    "avg_response_time_hrs": 17.77,
+    "top_vehicle_types": {
+      "CAR": 245,
+      "SCOOTER": 177,
+      "MOTOR CYCLE": 101,
+      "PASSENGER AUTO": 100,
+      "MOPED": 97
+    },
+    "peak_hours": {
+      "6": 161,
+      "7": 151,
+      "5": 109
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 19,
+        "crs": 0.0711,
+        "violation_count": 374,
+        "centroid_lat": 12.908306,
+        "centroid_lng": 77.547361
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 13,
+        "crs": 0.0988,
+        "violation_count": 405,
+        "centroid_lat": 12.888574,
+        "centroid_lng": 77.562603
+      },
+      {
+        "cluster_id": 22,
+        "crs": 0.063,
+        "violation_count": 128,
+        "centroid_lat": 12.894596,
+        "centroid_lng": 77.570043
+      },
+      {
+        "cluster_id": 50,
+        "crs": 0.0316,
+        "violation_count": 69,
+        "centroid_lat": 12.907668,
+        "centroid_lng": 77.533014
+      }
+    ]
+  },
+  {
+    "police_station": "Chikkabanavara",
+    "total_violations": 785,
+    "not_sent_to_scita": 132,
+    "gap_percentage": 16.82,
+    "avg_response_time_hrs": 11.87,
+    "top_vehicle_types": {
+      "CAR": 259,
+      "SCOOTER": 171,
+      "MOTOR CYCLE": 126,
+      "PASSENGER AUTO": 65,
+      "HGV": 44
+    },
+    "peak_hours": {
+      "6": 125,
+      "5": 116,
+      "21": 93
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 3,
+        "crs": 0.0638,
+        "violation_count": 1679,
+        "centroid_lat": 13.046537,
+        "centroid_lng": 77.505603
+      },
+      {
+        "cluster_id": 106,
+        "crs": 0.1488,
+        "violation_count": 22,
+        "centroid_lat": 13.070834,
+        "centroid_lng": 77.503466
+      },
+      {
+        "cluster_id": 124,
+        "crs": 0.0902,
+        "violation_count": 19,
+        "centroid_lat": 13.085203,
+        "centroid_lng": 77.486469
+      },
+      {
+        "cluster_id": 41,
+        "crs": 0.0587,
+        "violation_count": 14,
+        "centroid_lat": 13.050711,
+        "centroid_lng": 77.51537
+      },
+      {
+        "cluster_id": 109,
+        "crs": 0.0733,
+        "violation_count": 39,
+        "centroid_lat": 13.060787,
+        "centroid_lng": 77.461243
+      }
+    ]
+  },
+  {
+    "police_station": "Devanahalli Airport",
+    "total_violations": 773,
+    "not_sent_to_scita": 79,
+    "gap_percentage": 10.22,
+    "avg_response_time_hrs": 3.1,
+    "top_vehicle_types": {
+      "CAR": 735,
+      "MAXI-CAB": 18,
+      "LGV": 5,
+      "SCOOTER": 3,
+      "TEMPO": 3
+    },
+    "peak_hours": {
+      "23": 136,
+      "22": 105,
+      "0": 80
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 5,
+        "crs": 0.1171,
+        "violation_count": 5124,
+        "centroid_lat": 13.185469,
+        "centroid_lng": 77.680524
+      },
+      {
+        "cluster_id": 60,
+        "crs": 0.0978,
+        "violation_count": 109,
+        "centroid_lat": 13.197441,
+        "centroid_lng": 77.703986
+      }
+    ]
+  },
+  {
+    "police_station": "Kengeri",
+    "total_violations": 464,
+    "not_sent_to_scita": 47,
+    "gap_percentage": 10.13,
+    "avg_response_time_hrs": 23.14,
+    "top_vehicle_types": {
+      "CAR": 216,
+      "SCOOTER": 121,
+      "MOTOR CYCLE": 44,
+      "PASSENGER AUTO": 21,
+      "LGV": 17
+    },
+    "peak_hours": {
+      "6": 86,
+      "5": 85,
+      "23": 41
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 18,
+        "crs": 0.065,
+        "violation_count": 139,
+        "centroid_lat": 12.912927,
+        "centroid_lng": 77.482045
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      },
+      {
+        "cluster_id": 15,
+        "crs": 0.197,
+        "violation_count": 51,
+        "centroid_lat": 12.91705,
+        "centroid_lng": 77.500186
+      },
+      {
+        "cluster_id": 12,
+        "crs": 0.1531,
+        "violation_count": 36,
+        "centroid_lat": 12.910263,
+        "centroid_lng": 77.513457
+      },
+      {
+        "cluster_id": 54,
+        "crs": 0.0557,
+        "violation_count": 98,
+        "centroid_lat": 12.940046,
+        "centroid_lng": 77.493491
+      }
+    ]
+  },
+  {
+    "police_station": "No Police Station",
+    "total_violations": 338,
+    "not_sent_to_scita": 128,
+    "gap_percentage": 37.87,
+    "avg_response_time_hrs": 19.98,
+    "top_vehicle_types": {
+      "CAR": 110,
+      "SCOOTER": 49,
+      "LGV": 40,
+      "HGV": 30,
+      "MOTOR CYCLE": 27
+    },
+    "peak_hours": {
+      "6": 57,
+      "5": 45,
+      "21": 41
+    },
+    "top_clusters": [
+      {
+        "cluster_id": 3,
+        "crs": 0.0638,
+        "violation_count": 1679,
+        "centroid_lat": 13.046537,
+        "centroid_lng": 77.505603
+      },
+      {
+        "cluster_id": 73,
+        "crs": 0.0487,
+        "violation_count": 52,
+        "centroid_lat": 12.883557,
+        "centroid_lng": 77.752354
+      },
+      {
+        "cluster_id": 109,
+        "crs": 0.0733,
+        "violation_count": 39,
+        "centroid_lat": 13.060787,
+        "centroid_lng": 77.461243
+      },
+      {
+        "cluster_id": 38,
+        "crs": 0.035,
+        "violation_count": 28,
+        "centroid_lat": 13.068402,
+        "centroid_lng": 77.448371
+      },
+      {
+        "cluster_id": 0,
+        "crs": 0.4789,
+        "violation_count": 231672,
+        "centroid_lat": 12.979134,
+        "centroid_lng": 77.581655
+      }
+    ]
+  }
+]
