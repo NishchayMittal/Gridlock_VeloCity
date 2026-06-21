@@ -1,12 +1,12 @@
-# 🚦 Gridlock — AI-Driven Parking Intelligence
+# 🚦 VeloCity — AI-Driven Parking Intelligence
 
-Gridlock is a next-generation traffic enforcement Command Center designed to solve the problem of parking-induced congestion. It shifts traffic enforcement from a *reactive patrol* model to a *proactive, intelligence-driven* model.
+VeloCity is a next-generation traffic enforcement Command Center designed to solve the problem of parking-induced congestion. It shifts traffic enforcement from a *reactive patrol* model to a *proactive, intelligence-driven* model.
 
 ## ⚠️ The Problem
 On-street illegal parking and spillover parking near commercial areas, metro stations, and events choke carriageways and intersections. Today, enforcement is patrol-based and blind—there is no real-time visibility or heatmap of parking violations versus their actual impact on congestion, making it impossible to prioritize enforcement zones effectively.
 
 ## 🚀 The Solution
-Gridlock leverages machine learning and spatial clustering to process raw violation data, detect illegal parking hotspots, and quantify their impact on traffic flow via a proprietary **Congestion Risk Score (CRS)**. 
+VeloCity leverages machine learning and spatial clustering to process raw violation data, detect illegal parking hotspots, and quantify their impact on traffic flow via a proprietary **Congestion Risk Score (CRS)**. 
 
 ### Key Features
 * **Interactive Command Center**: A glassmorphic, state-of-the-art dashboard featuring a live, glowing thermal map (powered by Deck.gl) of the city's highest-risk parking zones.
@@ -26,8 +26,8 @@ Gridlock leverages machine learning and spatial clustering to process raw violat
 Ensure you have Python installed.
 ```bash
 # Clone the repository
-git clone https://github.com/Amogh017/Gridlock.git
-cd Gridlock
+git clone https://github.com/Amogh017/VeloCity.git
+cd VeloCity
 
 # Install dependencies
 pip install -r requirements.txt

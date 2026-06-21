@@ -12,10 +12,15 @@ async function fetchData() {
 
     try {
         console.log("Fetching data from API...");
+        const safeSetText = (id, text) => { const el = document.getElementById(id); if(el) el.innerText = text; };
+        const safeSetHTML = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
+
         // 1. Fetch Timeline (for Chart)
         const timelineRes = await fetch(`${API_BASE}/timeline`);
         const timelineData = await timelineRes.json();
-        renderChart(timelineData.daily_timeseries);
+        if (document.getElementById('timelineChart')) {
+            renderChart(timelineData.daily_timeseries);
+        }
         
         // Save for time-lapse
         window.hourlyDistribution = timelineData.hourly_distribution;
@@ -25,8 +30,8 @@ async function fetchData() {
         const gapsRes = await fetch(`${API_BASE}/enforcement-gaps?view=overall`);
         const gapsData = await gapsRes.json();
         
-        document.getElementById("stat-total-violations").innerText = gapsData.total_violations.toLocaleString();
-        document.getElementById("stat-scita-gap").innerHTML = `${gapsData.gap_percentage.toFixed(1)} <span class="text-base opacity-75 font-normal">%</span>`;
+        safeSetText("stat-total-violations", gapsData.total_violations.toLocaleString());
+        safeSetHTML("stat-scita-gap", `${gapsData.gap_percentage.toFixed(1)} <span class="text-base opacity-75 font-normal">%</span>`);
         
         // Calculate Revenue Leakage (Assuming avg ₹500 fine for wrong parking)
         const lostRevenue = gapsData.not_sent_to_scita * 500;
@@ -38,20 +43,24 @@ async function fetchData() {
             maximumFractionDigits: 0
         });
         
-        document.getElementById("stat-revenue-leakage").innerText = formatter.format(lostRevenue);
+        safeSetText("stat-revenue-leakage", formatter.format(lostRevenue));
 
         // 3. Fetch Hotspots (for stats and map)
         const hotspotsRes = await fetch(`${API_BASE}/hotspots?top_n=150`);
         const hotspotsData = await hotspotsRes.json();
-        document.getElementById("stat-hotspots").innerText = hotspotsData.total_clusters;
+        safeSetText("stat-hotspots", hotspotsData.total_clusters);
         window.allHotspots = hotspotsData.hotspots; // Save for search
-        renderMap(window.allHotspots);
+        if (document.getElementById('heatmap-container')) {
+            renderMap(window.allHotspots);
+        }
 
         // 4. Fetch Predictions (for table)
         const predictRes = await fetch(`${API_BASE}/predict-tomorrow?top_n=5`);
         const predictData = await predictRes.json();
         window.allPredictions = predictData.top_predicted_hotspots; // Save for search
-        renderPredictions(window.allPredictions);
+        if (document.getElementById('hotspots-tbody')) {
+            renderPredictions(window.allPredictions);
+        }
 
         // Hide overlay on success
         if (overlay) {
@@ -74,7 +83,9 @@ async function fetchData() {
 }
 
 function renderChart(dailyData) {
-    const ctx = document.getElementById('timelineChart').getContext('2d');
+    const ctx = document.getElementById('timelineChart');
+    if (!ctx) return;
+    const canvasContext = ctx.getContext('2d');
     
     // Sort chronologically (dailyData is an array of {date: string, count: number})
     const sorted = dailyData.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -125,11 +136,12 @@ function renderChart(dailyData) {
     });
 }
 
-function renderPredictions(hotspots) {
+function renderPredictions(predictions) {
     const tbody = document.getElementById("hotspots-tbody");
+    if (!tbody) return;
     tbody.innerHTML = "";
 
-    hotspots.forEach(h => {
+    predictions.forEach(h => {
         let intensityColor = "text-primary";
         let bgWidth = (h.predicted_violations_24h / 1000) * 100;
         if (bgWidth > 100) bgWidth = 100;
@@ -193,9 +205,14 @@ async function generateBrief() {
 document.addEventListener("DOMContentLoaded", fetchData);
 
 let mapInstance = null;
-let deckOverlay = null;
+let deckgl = null;
 
 function renderMap(hotspots) {
+    const container = document.getElementById('heatmap-container');
+    if (!container) return;
+    
+    if (deckgl) {}
+
     // Map CRS to RGB color for DeckGL Heatmap
     const getColor = (crs) => {
         if (crs > 0.3) return [255, 42, 127, 255];   

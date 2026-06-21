@@ -1,358 +1,266 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Traffic.AI - Dashboard</title>
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeloCity - AI Parking Intelligence</title>
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "on-background": "#e5e1e4",
-                        "inverse-on-surface": "#313032",
-                        "surface-bright": "#39393b",
-                        "inverse-surface": "#e5e1e4",
-                        "tertiary-container": "#d6c9ff",
-                        "on-surface-variant": "#bac9cc",
-                        "tertiary-fixed-dim": "#cdbdff",
-                        "on-primary-fixed": "#001f24",
-                        "on-primary": "#00363d",
-                        "on-secondary": "#002d6e",
-                        "tertiary": "#f1e9ff",
-                        "outline-variant": "#3b494c",
-                        "secondary-fixed-dim": "#b0c6ff",
-                        "surface-tint": "#00daf3",
-                        "surface-container-lowest": "#0e0e10",
-                        "surface-container-low": "#1c1b1d",
-                        "background": "#131315",
-                        "primary-fixed-dim": "#00daf3",
-                        "on-error-container": "#ffdad6",
-                        "secondary-container": "#0068ed",
-                        "surface": "#131315",
-                        "surface-container-high": "#2a2a2c",
-                        "primary-container": "#00e5ff",
-                        "tertiary-fixed": "#e8deff",
-                        "on-primary-container": "#00626e",
-                        "inverse-primary": "#006875",
-                        "on-tertiary": "#370096",
-                        "secondary": "#b0c6ff",
-                        "error": "#ffb4ab",
-                        "surface-dim": "#131315",
-                        "surface-container-highest": "#353437",
-                        "error-container": "#93000a",
-                        "outline": "#849396",
-                        "on-surface": "#e5e1e4",
-                        "on-tertiary-container": "#622be5",
-                        "on-error": "#690005",
-                        "on-secondary-fixed": "#001945",
-                        "on-tertiary-fixed": "#20005f",
-                        "on-primary-fixed-variant": "#004f58",
-                        "primary-fixed": "#9cf0ff",
-                        "on-tertiary-fixed-variant": "#4f00d0",
-                        "on-secondary-fixed-variant": "#00429b",
-                        "surface-container": "#201f21",
-                        "surface-variant": "#353437",
-                        "secondary-fixed": "#d9e2ff",
-                        "on-secondary-container": "#f2f3ff",
-                        "primary": "#c3f5ff"
+                    colors: {
+                        background: '#0B0C10',
+                        surface: '#131315',
+                        primary: '#00DAF3',
+                        'primary-container': 'rgba(0, 218, 243, 0.1)',
+                        'on-primary-container': '#E0F7FA',
                     },
-                    "fontFamily": {
-                        "label-md": ["Inter"],
-                        "headline-lg-mobile": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "body-md": ["Inter"],
-                        "display-lg": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "headline-md": ["Inter"],
-                        "code-md": ["Inter"],
-                        "label-sm": ["Inter"]
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* Custom Glass & Border Utilities */
-        .glass-panel {
-            background-color: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid transparent;
-            background-clip: padding-box;
-            position: relative;
+        body { font-family: 'Inter', sans-serif; background-color: #0B0C10; color: #fff; }
+        .glass-btn {
+            background: rgba(0, 218, 243, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 218, 243, 0.3);
+            box-shadow: 0 0 20px rgba(0, 218, 243, 0.2);
+            transition: all 0.3s ease;
         }
-        .glass-panel::before {
-            content: '';
+        .glass-btn:hover {
+            background: rgba(0, 218, 243, 0.2);
+            box-shadow: 0 0 30px rgba(0, 218, 243, 0.4);
+            transform: translateY(-2px);
+        }
+        .ambient-glow {
             position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(0, 218, 243, 0.15) 0%, rgba(0,0,0,0) 70%);
             z-index: -1;
-            margin: -1px;
-            border-radius: inherit;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+            pointer-events: none;
         }
-        .text-glow {
-            text-shadow: 0 0 10px rgba(0, 218, 243, 0.5);
+        
+        /* Hide scrollbar globally for the landing page */
+        ::-webkit-scrollbar {
+            display: none;
         }
-        .bg-grid-pattern {
-            background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        * {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
     </style>
-    <!-- MapLibre GL JS & Deck.gl -->
-    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
-    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
-    <script>window.mapboxgl = maplibregl;</script>
-    <script src="https://unpkg.com/deck.gl@8.9.33/dist.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- App Logic -->
-    <script src="app.js?v=3" defer></script>
 </head>
-<body class="bg-background text-on-background min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
-    <!-- Global Loading Overlay -->
-    <div id="loading-overlay" class="fixed inset-0 bg-background/90 backdrop-blur-md z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
-        <span class="material-symbols-outlined text-[64px] text-surface-tint animate-spin mb-6 text-glow">autorenew</span>
-        <h2 class="font-headline-md text-headline-md text-surface-tint font-bold tracking-widest uppercase mb-2">Syncing Traffic Data</h2>
-        <p class="font-code-md text-code-md text-on-surface-variant animate-pulse">Running LightGBM forecasts and calculating CRS...</p>
-    </div>
-
-    <!-- Global ambient glow -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-3/4 h-[500px] bg-surface-tint/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+<body class="relative min-h-screen flex flex-col items-center justify-start pt-32 pb-20 overflow-x-hidden">
     
-    <!-- SideNavBar -->
-    <nav class="bg-surface/30 backdrop-blur-xl h-screen w-64 fixed left-0 top-0 border-r border-white/10 shadow-[0px_0px_15px_rgba(0,218,243,0.1)] z-40 hidden md:block">
-        <div class="flex flex-col h-full py-8">
-            <!-- Brand -->
-            <div class="px-6 mb-10 flex flex-col gap-1">
-                <span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">TRAFFIC.AI</span>
-                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Command Center</span>
-            </div>
-            <!-- Nav Items -->
-            <ul class="flex flex-col gap-2 px-4 flex-1">
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary bg-primary/10 border-l-2 border-primary font-label-md text-label-md transition-colors" href="#">
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors active:scale-95 duration-200 font-label-md text-label-md" href="#">
-                        <span class="material-symbols-outlined">local_fire_department</span>
-                        Hotspots
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors active:scale-95 duration-200 font-label-md text-label-md" href="#">
-                        <span class="material-symbols-outlined">smart_toy</span>
-                        AI Patrol
-                    </a>
-                </li>
-            </ul>
+    <!-- 3D Background Container -->
+    <div id="threejs-container" class="fixed inset-0 w-full h-full -z-20 opacity-40 mix-blend-screen pointer-events-none"></div>
+    <div class="ambient-glow"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full p-6 flex justify-between items-center z-50">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-3xl">shield</span>
+            <span class="text-2xl font-bold tracking-tight">VeloCity</span>
         </div>
     </nav>
 
-    <!-- TopNavBar -->
-    <header class="bg-surface/20 backdrop-blur-md h-16 fixed top-0 right-0 left-0 md:left-64 z-50 flex items-center justify-between px-8 border-b border-white/5">
-        <div class="flex items-center gap-4 w-full justify-between">
-            <div class="md:hidden flex items-center gap-2">
-                <span class="font-headline-md text-headline-md font-bold text-primary tracking-tight text-glow">TRAFFIC.AI</span>
-            </div>
-            <div class="hidden md:flex items-center relative w-96">
-                <span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
-                <input id="search-input" class="w-full bg-surface-container/50 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-on-surface font-label-md text-label-md focus:outline-none focus:border-surface-tint focus:ring-1 focus:ring-surface-tint transition-all placeholder:text-on-surface-variant/50" placeholder="Search locations, zones, or IDs..." type="text"/>
-            </div>
-            <div class="flex items-center gap-6">
-                <!-- Notifications removed as requested -->
-            </div>
+    <!-- Hero Section -->
+    <main class="flex flex-col items-center text-center z-10 px-4 max-w-4xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8 animate-pulse">
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+            Live in Bengaluru
         </div>
-    </header>
+        
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
+            Shift from Reactive to <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">Proactive Enforcement</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl leading-relaxed">
+            AI-driven parking intelligence that detects illegal hotspots, quantifies traffic impact, and dispatches officers before gridlock happens.
+        </p>
 
-    <!-- Main Content Canvas -->
-    <main class="pt-24 pb-12 px-4 md:px-8 md:ml-64 max-w-[1600px] mx-auto min-h-screen">
-        <!-- Page Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-            <div>
-                <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">System Overview</h1>
-                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Live metrics from FastAPI Backend</p>
-            </div>
-            <div class="flex gap-3">
-                <button onclick="fetchData()" class="bg-primary/10 border border-primary/30 text-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary/20 transition-colors flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[18px]">autorenew</span>
-                    Refresh Data
-                </button>
-            </div>
-        </div>
+        <a href="dashboard.html" class="glass-btn px-8 py-4 rounded-xl text-primary font-semibold text-lg flex items-center gap-3 group">
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">rocket_launch</span>
+            Enter Command Center
+        </a>
 
-        <!-- Top Row: Summary Stats -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <!-- Stat 1: Total Violations -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <span class="material-symbols-outlined text-[64px] text-surface-tint">traffic</span>
-                </div>
-                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-                    <span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
-                    Total Violations Analyzed
-                </div>
-                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-total-violations">
-                    ...
-                </div>
-                <div class="font-label-sm text-label-sm text-error flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">warning</span>
-                    Historical Data
-                </div>
+        <!-- Feature Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 text-left w-full">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">3d_rotation</span>
+                <h3 class="text-lg font-semibold mb-2">Live 3D Hotspot Map</h3>
+                <p class="text-gray-400 text-sm">Visualize congestion risks with real-time glowing thermal mapping and interactive time-lapse simulations.</p>
             </div>
-
-            <!-- Stat 2: SCITA Gap -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <span class="material-symbols-outlined text-[64px] text-surface-tint">visibility_off</span>
-                </div>
-                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    SCITA Intelligence Gap
-                </div>
-                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-scita-gap">
-                    ...
-                </div>
-                <div class="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">info</span>
-                    Not reported to central sys
-                </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">smart_toy</span>
+                <h3 class="text-lg font-semibold mb-2">AI Patrol Briefs</h3>
+                <p class="text-gray-400 text-sm">Automatically generate strategic patrol orders for field officers using cutting-edge LLMs.</p>
             </div>
-
-            <!-- Stat 3: Revenue Leakage -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group border border-[#d93025]/30 bg-[#d93025]/5 shadow-[0_0_15px_rgba(217,48,37,0.1)]">
-                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <span class="material-symbols-outlined text-[64px] text-[#d93025]">account_balance</span>
-                </div>
-                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-                    <span class="w-2 h-2 rounded-full bg-[#d93025] animate-pulse"></span>
-                    Phantom Revenue Leakage
-                </div>
-                <div class="font-display-lg text-display-lg text-[#d93025]" id="stat-revenue-leakage" style="text-shadow: 0 0 10px rgba(217,48,37,0.4);">
-                    ...
-                </div>
-                <div class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
-                    Fines lost due to SCITA gap (₹500/viol)
-                </div>
-            </div>
-
-            <!-- Stat 4: Clusters -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <span class="material-symbols-outlined text-[64px] text-surface-tint">hub</span>
-                </div>
-                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-                    <span class="w-2 h-2 rounded-full bg-surface-tint animate-pulse"></span>
-                    Active Hotspots Detected
-                </div>
-                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-hotspots">
-                    ...
-                </div>
-                <div class="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                    System Nominal
-                </div>
-            </div>
-        </div>
-
-        <!-- Map Row: Heatmap -->
-        <div class="glass-panel rounded-xl p-6 mb-8 border-b border-white/5 relative z-0">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
-                    <span class="material-symbols-outlined text-surface-tint">3d_rotation</span>
-                    Live Hotspot Map (3D Forecast)
-                </h2>
-                <div class="flex gap-2">
-                    <span class="bg-primary/20 text-primary font-code-sm text-[12px] px-3 py-1 rounded-full border border-primary/30 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> LIVE
-                    </span>
-                </div>
-            </div>
-            <div id="heatmap-container" class="w-full h-[450px] rounded-lg border border-white/10 z-0 relative overflow-hidden">
-                <!-- Time-Lapse Slider Overlay -->
-                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 w-[80%] max-w-2xl bg-[#131315]/90 backdrop-blur-xl border border-white/10 rounded-full py-3 px-6 flex items-center gap-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-                    <button id="timelapse-play" class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary hover:bg-primary/40 transition-colors border border-primary/30">
-                        <span class="material-symbols-outlined text-[20px]" id="timelapse-icon">play_arrow</span>
-                    </button>
-                    <div class="font-code-md text-on-surface font-bold text-[15px] w-14 text-center tracking-wider" id="timelapse-label">LIVE</div>
-                    <input type="range" id="timelapse-slider" min="0" max="23" value="12" class="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-primary">
-                </div>
-            </div>
-        </div>
-
-        <!-- Middle Row: Timeline Chart -->
-        <div class="glass-panel rounded-xl p-6 mb-8 border-b border-white/5 relative z-0">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
-                    <span class="material-symbols-outlined text-surface-tint">timeline</span>
-                    Violation Timeline (Daily)
-                </h2>
-            </div>
-            <div class="h-64 w-full relative">
-                <canvas id="timelineChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Bottom Row: Split Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Left: Top Hotspots Data Table -->
-            <div class="glass-panel rounded-xl lg:col-span-2 overflow-hidden flex flex-col">
-                <div class="p-6 border-b border-white/5 flex justify-between items-center bg-surface-container/30">
-                    <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
-                        <span class="material-symbols-outlined text-error">local_fire_department</span>
-                        Top Hotspots (Forecasted)
-                    </h2>
-                </div>
-                <div class="overflow-x-auto p-2 flex-1">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="font-label-sm text-label-sm text-on-surface-variant border-b border-white/5">
-                                <th class="p-4 font-normal">Location</th>
-                                <th class="p-4 font-normal">Station</th>
-                                <th class="p-4 font-normal">Predicted 24h</th>
-                                <th class="p-4 font-normal">Peak Hour</th>
-                                <th class="p-4 font-normal">CRS Score</th>
-                            </tr>
-                        </thead>
-                        <tbody id="hotspots-tbody" class="font-body-md text-body-md text-on-surface">
-                            <tr><td colspan="5" class="p-4 text-center">Loading predictions...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Right: AI Patrol Brief -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col relative overflow-hidden bg-surface-container-lowest/50 border border-surface-tint/20">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-surface-tint/0 via-surface-tint to-surface-tint/0 opacity-50"></div>
-                <h2 class="font-headline-md text-headline-md text-surface-tint flex items-center gap-2 mb-4 font-code-md tracking-wider">
-                    <span class="material-symbols-outlined">smart_toy</span>
-                    &gt;_ AI_PATROL_BRIEF
-                </h2>
-                <div id="ai-brief-content" class="flex-1 font-code-md text-code-md text-on-surface-variant space-y-4 overflow-y-auto max-h-[400px]">
-                    <p class="text-on-surface">&gt; Awaiting command...</p>
-                </div>
-                <div class="mt-6 flex gap-3">
-                    <button id="btn-generate-brief" onclick="generateBrief()" class="flex-1 bg-surface-tint text-on-primary font-label-md text-label-md py-2 px-4 rounded hover:bg-primary transition-colors font-bold shadow-[0_0_10px_rgba(0,218,243,0.3)]">
-                        Generate Brief (Groq)
-                    </button>
-                </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
+                <span class="material-symbols-outlined text-[#d93025] text-3xl mb-4">account_balance</span>
+                <h3 class="text-lg font-semibold mb-2">Revenue Recovery</h3>
+                <p class="text-gray-400 text-sm">Identify un-synced SCITA violations and recover millions in phantom revenue leakage.</p>
             </div>
         </div>
     </main>
+
+    <script>
+        // Initialize Three.js Scene
+        const container = document.getElementById('threejs-container');
+        const scene = new THREE.Scene();
+        // Match the background color to VeloCity's background #0B0C10
+        scene.fog = new THREE.FogExp2(0x0B0C10, 0.015);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 15, 30);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Ambient light
+        scene.add(new THREE.AmbientLight(0x222222));
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(10, 20, 10);
+        scene.add(directionalLight);
+
+        // Grid of roads
+        const gridHelper = new THREE.GridHelper(100, 50, 0x004f4f, 0x002020);
+        scene.add(gridHelper);
+
+        // Skyscrapers
+        const buildingGeometry = new THREE.BoxGeometry(1, 1, 1);
+        const buildingMaterial = new THREE.MeshPhongMaterial({ color: 0x111111 });
+        const neonMaterialCyan = new THREE.MeshBasicMaterial({ color: 0x00DAF3 }); // Matched to VeloCity Primary
+        const neonMaterialMagenta = new THREE.MeshBasicMaterial({ color: 0xff4e7a });
+
+        const cityGroup = new THREE.Group();
+        scene.add(cityGroup);
+
+        const blockSize = 2;
+        for (let x = -20; x < 20; x++) {
+            for (let z = -20; z < 20; z++) {
+                // Leave space for roads (every 3rd block is a road)
+                if (x % 3 === 0 || z % 3 === 0) continue;
+
+                const height = Math.random() * 8 + 2;
+                const building = new THREE.Mesh(buildingGeometry, buildingMaterial);
+                building.position.set(x * blockSize, height / 2, z * blockSize);
+                building.scale.set(1.8, height, 1.8);
+                cityGroup.add(building);
+
+                // Add neon strips
+                if (Math.random() > 0.5) {
+                    const stripGeometry = new THREE.BoxGeometry(0.1, height, 0.1);
+                    const mat = Math.random() > 0.5 ? neonMaterialCyan : neonMaterialMagenta;
+                    const strip1 = new THREE.Mesh(stripGeometry, mat);
+                    strip1.position.set(x * blockSize + 0.9, height / 2, z * blockSize + 0.9);
+                    const strip2 = new THREE.Mesh(stripGeometry, mat);
+                    strip2.position.set(x * blockSize - 0.9, height / 2, z * blockSize - 0.9);
+                    cityGroup.add(strip1);
+                    cityGroup.add(strip2);
+                }
+            }
+        }
+
+        // Cars
+        const cars = [];
+        for (let i = 0; i < 150; i++) {
+            const isXAxis = Math.random() > 0.5;
+            const roadCoord = (Math.floor(Math.random() * 13) - 6) * 3 * blockSize;
+            
+            const car = new THREE.Group();
+            
+            const bodyMat = new THREE.MeshBasicMaterial({ color: 0x111111 });
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.4), bodyMat);
+            car.add(body);
+
+            const hl = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.05), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+            hl.position.set(0, 0, 0.2);
+            car.add(hl);
+
+            const tl = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.05), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
+            tl.position.set(0, 0, -0.2);
+            car.add(tl);
+
+            const speed = (Math.random() * 0.1 + 0.05) * (Math.random() > 0.5 ? 1 : -1);
+
+            car.userData = {
+                isXAxis: isXAxis,
+                speed: speed,
+                x: isXAxis ? (Math.random() - 0.5) * 80 : roadCoord,
+                z: isXAxis ? roadCoord : (Math.random() - 0.5) * 80
+            };
+
+            car.position.set(car.userData.x, 0.1, car.userData.z);
+            
+            // Rotate car to face direction of travel
+            if (isXAxis) {
+                car.rotation.y = speed > 0 ? Math.PI / 2 : -Math.PI / 2;
+            } else {
+                car.rotation.y = speed > 0 ? 0 : Math.PI;
+            }
+
+            scene.add(car);
+            cars.push(car);
+        }
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+        let angle = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+
+            // Update cars
+            cars.forEach(car => {
+                if (car.userData.isXAxis) {
+                    car.position.x += car.userData.speed;
+                    if (car.position.x > 40) car.position.x = -40;
+                    if (car.position.x < -40) car.position.x = 40;
+                } else {
+                    car.position.z += car.userData.speed;
+                    if (car.position.z > 40) car.position.z = -40;
+                    if (car.position.z < -40) car.position.z = 40;
+                }
+            });
+
+            // Camera pan
+            angle += delta * 0.05;
+            camera.position.x = Math.cos(angle) * 35;
+            camera.position.z = Math.sin(angle) * 35;
+            camera.lookAt(0, 0, 0);
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>

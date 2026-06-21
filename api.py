@@ -1,5 +1,5 @@
 """
-Gridlock -- FastAPI Backend
+VeloCity -- FastAPI Backend
 ===========================
 Person 1 (Nishchay) - Day 1 + Day 2
 
@@ -32,7 +32,7 @@ load_dotenv()
 # App Setup
 # ──────────────────────────────────────────────
 app = FastAPI(
-    title="Gridlock -- Parking Violation Intelligence API",
+    title="VeloCity -- Parking Violation Intelligence API",
     description="AI-driven parking intelligence to detect illegal parking hotspots "
                 "and quantify their impact on traffic flow.",
     version="2.0.0",
@@ -106,7 +106,7 @@ def get_model():
 @app.get("/")
 def root():
     return {
-        "service": "Gridlock -- Parking Violation Intelligence API",
+        "service": "VeloCity -- Parking Violation Intelligence API",
         "version": "2.0.0",
         "endpoints": [
             "/hotspots",

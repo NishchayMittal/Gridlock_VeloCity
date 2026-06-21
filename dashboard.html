@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Traffic.AI - Dashboard</title>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e5e1e4",
+                        "inverse-on-surface": "#313032",
+                        "surface-bright": "#39393b",
+                        "inverse-surface": "#e5e1e4",
+                        "tertiary-container": "#d6c9ff",
+                        "on-surface-variant": "#bac9cc",
+                        "tertiary-fixed-dim": "#cdbdff",
+                        "on-primary-fixed": "#001f24",
+                        "on-primary": "#00363d",
+                        "on-secondary": "#002d6e",
+                        "tertiary": "#f1e9ff",
+                        "outline-variant": "#3b494c",
+                        "secondary-fixed-dim": "#b0c6ff",
+                        "surface-tint": "#00daf3",
+                        "surface-container-lowest": "#050608",
+                        "surface-container-low": "#0b0c10",
+                        "background": "#0b0c10",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#0068ed",
+                        "surface": "#0b0c10",
+                        "surface-container-high": "#161821",
+                        "primary-container": "#00e5ff",
+                        "tertiary-fixed": "#e8deff",
+                        "on-primary-container": "#00626e",
+                        "inverse-primary": "#006875",
+                        "on-tertiary": "#370096",
+                        "secondary": "#b0c6ff",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0b0c10",
+                        "surface-container-highest": "#1c1e2b",
+                        "error-container": "#93000a",
+                        "outline": "#849396",
+                        "on-surface": "#ffffff",
+                        "on-tertiary-container": "#622be5",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#001945",
+                        "on-tertiary-fixed": "#20005f",
+                        "on-primary-fixed-variant": "#004f58",
+                        "primary-fixed": "#00daf3",
+                        "on-tertiary-fixed-variant": "#4f00d0",
+                        "on-secondary-fixed-variant": "#00429b",
+                        "surface-container": "#111218",
+                        "surface-variant": "#1c1e2b",
+                        "secondary-fixed": "#d9e2ff",
+                        "on-secondary-container": "#f2f3ff",
+                        "primary": "#00daf3"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Glass & Border Utilities */
+        .glass-panel {
+            background-color: rgba(0, 218, 243, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 218, 243, 0.15);
+            background-clip: padding-box;
+            position: relative;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            margin: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(0, 218, 243, 0.1) 0%, rgba(255, 78, 122, 0.05) 100%);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(0, 218, 243, 0.5);
+        }
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        /* Thin Cyberpunk Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 218, 243, 0.2); 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 218, 243, 0.5); 
+        }
+    </style>
+    <!-- MapLibre GL JS & Deck.gl -->
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <script>window.mapboxgl = maplibregl;</script>
+    <script src="https://unpkg.com/deck.gl@8.9.33/dist.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- App Logic -->
+    <script src="app.js?v=3" defer></script>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+    <!-- Global Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-background/90 backdrop-blur-md z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
+        <span class="material-symbols-outlined text-[64px] text-surface-tint animate-spin mb-6 text-glow">autorenew</span>
+        <h2 class="font-headline-md text-headline-md text-surface-tint font-bold tracking-widest uppercase mb-2">Syncing Traffic Data</h2>
+        <p class="font-code-md text-code-md text-on-surface-variant animate-pulse">Running LightGBM forecasts and calculating CRS...</p>
+    </div>
+
+    <!-- Global ambient glow -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-3/4 h-[500px] bg-surface-tint/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+    
+    <!-- SideNavBar -->
+    <nav class="bg-surface/30 backdrop-blur-xl h-screen w-64 fixed left-0 top-0 border-r border-white/10 shadow-[0px_0px_15px_rgba(0,218,243,0.1)] z-40 hidden md:block">
+        <div class="flex flex-col h-full py-8">
+            <!-- Brand -->
+            <div class="px-6 mb-10 flex flex-col gap-1">
+                <span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">VeloCity</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Command Center</span>
+            </div>
+            <!-- Nav Items -->
+            <ul class="flex flex-col gap-2 px-4 flex-1">
+                <li>
+                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors active:scale-95 duration-200 font-label-md text-label-md" href="index.html">
+                        <span class="material-symbols-outlined">home</span>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary bg-primary/10 border-l-2 border-primary font-label-md text-label-md transition-colors" href="dashboard.html">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors active:scale-95 duration-200 font-label-md text-label-md" href="patrol.html">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                        AI Patrol
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- TopNavBar -->
+    <header class="bg-surface/20 backdrop-blur-md h-16 fixed top-0 right-0 left-0 md:left-64 z-50 flex items-center justify-between px-8 border-b border-white/5">
+        <div class="flex items-center gap-4 w-full justify-between">
+            <div class="md:hidden flex items-center gap-2">
+                <span class="font-headline-md text-headline-md font-bold text-primary tracking-tight text-glow">TRAFFIC.AI</span>
+            </div>
+            <div class="hidden md:flex items-center relative w-96">
+                <span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+                <input id="search-input" class="w-full bg-surface-container/50 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-on-surface font-label-md text-label-md focus:outline-none focus:border-surface-tint focus:ring-1 focus:ring-surface-tint transition-all placeholder:text-on-surface-variant/50" placeholder="Search locations, zones, or IDs..." type="text"/>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Notifications removed as requested -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="pt-24 pb-12 px-4 md:px-8 md:ml-64 max-w-[1600px] mx-auto min-h-screen">
+        <!-- Page Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div>
+                <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">System Overview</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Live metrics from FastAPI Backend</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="fetchData()" class="bg-primary/10 border border-primary/30 text-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary/20 transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">autorenew</span>
+                    Refresh Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Top Row: Summary Stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Stat 1: Total Violations -->
+            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <span class="material-symbols-outlined text-[64px] text-surface-tint">traffic</span>
+                </div>
+                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+                    <span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                    Total Violations Analyzed
+                </div>
+                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-total-violations">
+                    ...
+                </div>
+                <div class="font-label-sm text-label-sm text-error flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">warning</span>
+                    Historical Data
+                </div>
+            </div>
+
+            <!-- Stat 2: SCITA Gap -->
+            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <span class="material-symbols-outlined text-[64px] text-surface-tint">visibility_off</span>
+                </div>
+                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    SCITA Intelligence Gap
+                </div>
+                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-scita-gap">
+                    ...
+                </div>
+                <div class="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">info</span>
+                    Not reported to central sys
+                </div>
+            </div>
+
+            <!-- Stat 3: Revenue Leakage -->
+            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group border border-[#d93025]/30 bg-[#d93025]/5 shadow-[0_0_15px_rgba(217,48,37,0.1)]">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <span class="material-symbols-outlined text-[64px] text-[#d93025]">account_balance</span>
+                </div>
+                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+                    <span class="w-2 h-2 rounded-full bg-[#d93025] animate-pulse"></span>
+                    Phantom Revenue Leakage
+                </div>
+                <div class="font-display-lg text-display-lg text-[#d93025]" id="stat-revenue-leakage" style="text-shadow: 0 0 10px rgba(217,48,37,0.4);">
+                    ...
+                </div>
+                <div class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                    Fines lost due to SCITA gap (₹500/viol)
+                </div>
+            </div>
+
+            <!-- Stat 4: Clusters -->
+            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <span class="material-symbols-outlined text-[64px] text-surface-tint">hub</span>
+                </div>
+                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+                    <span class="w-2 h-2 rounded-full bg-surface-tint animate-pulse"></span>
+                    Active Hotspots Detected
+                </div>
+                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-hotspots">
+                    ...
+                </div>
+                <div class="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                    System Nominal
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Row: Heatmap -->
+        <div class="glass-panel rounded-xl p-6 mb-8 border-b border-white/5 relative z-0">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-surface-tint">3d_rotation</span>
+                    Live Hotspot Map (3D Forecast)
+                </h2>
+                <div class="flex gap-2">
+                    <span class="bg-primary/20 text-primary font-code-sm text-[12px] px-3 py-1 rounded-full border border-primary/30 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> LIVE
+                    </span>
+                </div>
+            </div>
+            <div id="heatmap-container" class="w-full h-[450px] rounded-lg border border-white/10 z-0 relative overflow-hidden">
+                <!-- Time-Lapse Slider Overlay -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 w-[80%] max-w-2xl bg-[#131315]/90 backdrop-blur-xl border border-white/10 rounded-full py-3 px-6 flex items-center gap-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+                    <button id="timelapse-play" class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary hover:bg-primary/40 transition-colors border border-primary/30">
+                        <span class="material-symbols-outlined text-[20px]" id="timelapse-icon">play_arrow</span>
+                    </button>
+                    <div class="font-code-md text-on-surface font-bold text-[15px] w-14 text-center tracking-wider" id="timelapse-label">LIVE</div>
+                    <input type="range" id="timelapse-slider" min="0" max="23" value="12" class="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-primary">
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Row: Timeline Chart -->
+        <div class="glass-panel rounded-xl p-6 mb-8 border-b border-white/5 relative z-0">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-surface-tint">timeline</span>
+                    Violation Timeline (Daily)
+                </h2>
+            </div>
+            <div class="h-64 w-full relative">
+                <canvas id="timelineChart"></canvas>
+            </div>
+        </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
