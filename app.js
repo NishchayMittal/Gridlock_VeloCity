@@ -27,10 +27,18 @@ async function fetchData() {
         
         document.getElementById("stat-total-violations").innerText = gapsData.total_violations.toLocaleString();
         document.getElementById("stat-scita-gap").innerHTML = `${gapsData.gap_percentage.toFixed(1)} <span class="text-base opacity-75 font-normal">%</span>`;
-        const scitaLag = gapsData.avg_scita_lag_hrs;
-        document.getElementById("stat-response-delay").innerHTML = scitaLag !== undefined && scitaLag !== null
-            ? `${scitaLag.toFixed(1)} <span class="text-base opacity-75 font-normal">hours</span>`
-            : `N/A`;
+        
+        // Calculate Revenue Leakage (Assuming avg ₹500 fine for wrong parking)
+        const lostRevenue = gapsData.not_sent_to_scita * 500;
+        
+        // Format as Indian Currency (Crores/Lakhs)
+        const formatter = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            maximumFractionDigits: 0
+        });
+        
+        document.getElementById("stat-revenue-leakage").innerText = formatter.format(lostRevenue);
 
         // 3. Fetch Hotspots (for stats and map)
         const hotspotsRes = await fetch(`${API_BASE}/hotspots?top_n=150`);
