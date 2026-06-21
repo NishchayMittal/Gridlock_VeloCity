@@ -16,6 +16,10 @@ async function fetchData() {
         const timelineRes = await fetch(`${API_BASE}/timeline`);
         const timelineData = await timelineRes.json();
         renderChart(timelineData.daily_timeseries);
+        
+        // Save for time-lapse
+        window.hourlyDistribution = timelineData.hourly_distribution;
+        window.maxHourly = Math.max(...Object.values(window.hourlyDistribution || {}));
 
         // 2. Fetch Gaps (for stats)
         const gapsRes = await fetch(`${API_BASE}/enforcement-gaps?view=overall`);
@@ -328,17 +332,86 @@ setInterval(async () => {
         const searchInput = document.getElementById('search-input');
         const term = searchInput ? searchInput.value.toLowerCase() : '';
         
-        if (term) {
-            const filteredMap = window.allHotspots.filter(h => 
-                (h.top_junction && h.top_junction.toLowerCase().includes(term)) ||
-                (h.top_station && h.top_station.toLowerCase().includes(term))
-            );
-            renderMap(filteredMap);
-        } else {
-            renderMap(window.allHotspots);
+        if (!window.timeLapseActive) {
+            if (term) {
+                const filteredMap = window.allHotspots.filter(h => 
+                    (h.top_junction && h.top_junction.toLowerCase().includes(term)) ||
+                    (h.top_station && h.top_station.toLowerCase().includes(term))
+                );
+                renderMap(filteredMap);
+            } else {
+                renderMap(window.allHotspots);
+            }
         }
     } catch (e) {
         console.warn("Live traffic sync failed", e);
     }
 }, 8000);
+
+// ==========================================
+// Time-Lapse Slider Logic
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    window.timeLapseActive = false;
+    const slider = document.getElementById('timelapse-slider');
+    const label = document.getElementById('timelapse-label');
+    const playBtn = document.getElementById('timelapse-play');
+    let playInterval = null;
+
+    if (slider && label) {
+        slider.addEventListener('input', (e) => {
+            window.timeLapseActive = true;
+            const hour = parseInt(e.target.value);
+            const hourStr = hour.toString().padStart(2, '0');
+            label.innerText = `${hourStr}:00`;
+            
+            if (window.hourlyDistribution && window.allHotspots) {
+                // Calculate intensity ratio based on historical hourly distribution
+                const count = window.hourlyDistribution[hourStr] || 0;
+                // Minimum 10% intensity so the map doesn't go completely black
+                const ratio = Math.max(0.1, count / window.maxHourly);
+                
+                const simulatedHotspots = window.allHotspots.map(h => {
+                    // Add micro-variance so hotspots pulse slightly differently
+                    const variance = ((h.cluster_id % 7) / 30); 
+                    const multiplier = Math.max(0.1, ratio + variance - 0.1);
+                    return {
+                        ...h,
+                        violation_count: Math.round(h.violation_count * multiplier),
+                        crs: h.crs * multiplier,
+                        live_traffic_delay_mins: Math.round(h.live_traffic_delay_mins * multiplier),
+                        live_avg_speed_kmh: Math.round(40 - ((40 - h.live_avg_speed_kmh) * multiplier))
+                    };
+                });
+                
+                renderMap(simulatedHotspots);
+            }
+        });
+    }
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            if (playInterval) {
+                // Stop playback and return to LIVE
+                clearInterval(playInterval);
+                playInterval = null;
+                document.getElementById('timelapse-icon').innerText = 'play_arrow';
+                label.innerText = 'LIVE';
+                window.timeLapseActive = false;
+                renderMap(window.allHotspots); 
+            } else {
+                // Start playback
+                document.getElementById('timelapse-icon').innerText = 'stop';
+                window.timeLapseActive = true;
+                let currentHour = parseInt(slider.value);
+                
+                playInterval = setInterval(() => {
+                    currentHour = (currentHour + 1) % 24;
+                    slider.value = currentHour;
+                    slider.dispatchEvent(new Event('input'));
+                }, 600); // Fast 600ms per hour progression
+            }
+        });
+    }
+});
 
