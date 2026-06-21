@@ -258,13 +258,18 @@ function renderMap(hotspots) {
         
         // Popup
         const popup = new maplibregl.Popup({ offset: 12, closeButton: false }).setHTML(`
-            <div style="color: #131315; font-family: Inter, sans-serif; min-width: 140px; padding: 2px;">
+            <div style="color: #131315; font-family: Inter, sans-serif; min-width: 150px; padding: 2px;">
                 <strong style="display: block; font-size: 15px; margin-bottom: 4px; border-bottom: 1px solid #ccc; padding-bottom: 4px;">
                     ${h.top_junction || 'No Junction'}
                 </strong>
                 <div style="font-size: 13px;">📍 Station: ${h.top_station}</div>
                 <div style="font-size: 13px; font-weight: bold; margin-top: 4px;">📊 Violations: ${h.violation_count}</div>
                 <div style="font-size: 13px; color: ${hex}; font-weight: bold;">⚠️ CRS: ${h.crs.toFixed(4)}</div>
+                
+                <div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(0,0,0,0.2);">
+                    <div style="font-size: 13px; color: #d93025; font-weight: bold;">🚗 Traffic Delay: +${h.live_traffic_delay_mins || 0} mins</div>
+                    <div style="font-size: 13px; color: #1a73e8; font-weight: bold;">⏱️ Live Speed: ${h.live_avg_speed_kmh || 0} km/h</div>
+                </div>
             </div>
         `);
 
@@ -311,4 +316,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// Live Traffic Polling: Fetches new simulated traffic metrics every 8 seconds
+setInterval(async () => {
+    try {
+        const hotspotsRes = await fetch(`${API_BASE}/hotspots?top_n=150`);
+        const hotspotsData = await hotspotsRes.json();
+        window.allHotspots = hotspotsData.hotspots;
+        
+        // Preserve active search filtering
+        const searchInput = document.getElementById('search-input');
+        const term = searchInput ? searchInput.value.toLowerCase() : '';
+        
+        if (term) {
+            const filteredMap = window.allHotspots.filter(h => 
+                (h.top_junction && h.top_junction.toLowerCase().includes(term)) ||
+                (h.top_station && h.top_station.toLowerCase().includes(term))
+            );
+            renderMap(filteredMap);
+        } else {
+            renderMap(window.allHotspots);
+        }
+    } catch (e) {
+        console.warn("Live traffic sync failed", e);
+    }
+}, 8000);
 
