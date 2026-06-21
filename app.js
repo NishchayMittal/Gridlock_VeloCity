@@ -1,4 +1,8 @@
-const API_BASE = "http://127.0.0.1:8001";
+// Automatically switch between localhost and production backend
+// TODO: Replace 'https://velocity-api.onrender.com' with your actual Render backend URL after deployment
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? "http://127.0.0.1:8001"
+    : "https://velocity-api.onrender.com"; // <-- PUT YOUR RENDER URL HERE
 
 let chartInstance = null;
 
