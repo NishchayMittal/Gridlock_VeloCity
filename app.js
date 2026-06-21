@@ -1,7 +1,7 @@
 // Automatically switch between localhost and production backend
 const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? "http://127.0.0.1:8001"
-    : "https://gridlock-z3jy.onrender.com";
+    : "https://gridlock-velocity.onrender.com";
 
 let chartInstance = null;
 
