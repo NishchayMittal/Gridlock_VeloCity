@@ -1,0 +1,7 @@
+# Ignore Python backend and large data files for Vercel static deployment
+*.py
+*.csv
+*.png
+data/
+__pycache__/
+.env
