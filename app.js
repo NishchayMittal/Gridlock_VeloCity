@@ -562,6 +562,13 @@ function processVoiceCommand(command) {
         return;
     }
 
+    // Show/Hide Patrol Route
+    if (command.includes('route') || command.includes('patrol route')) {
+        setVoiceStatus('Toggling patrol route...', '#00DAF3');
+        togglePatrolRoute();
+        return;
+    }
+
     // Show [Location] - catch-all search
     const locationKeywords = ['show', 'search', 'find', 'go to', 'navigate', 'zoom', 'where is', 'locate'];
     let searchTerm = command;
@@ -599,3 +606,268 @@ document.addEventListener('keydown', (e) => {
         toggleVoice();
     }
 });
+
+// ==========================================
+// Animated Patrol Route on Map
+// ==========================================
+let patrolRouteActive = false;
+let patrolAnimationFrame = null;
+let patrolDotMarker = null;
+
+function togglePatrolRoute() {
+    if (patrolRouteActive) {
+        removePatrolRoute();
+    } else {
+        drawPatrolRoute();
+    }
+}
+
+function drawPatrolRoute() {
+    if (!mapInstance || !window.allHotspots || window.allHotspots.length < 2) return;
+
+    patrolRouteActive = true;
+
+    // Update button style
+    const btn = document.getElementById('patrol-route-btn');
+    if (btn) {
+        btn.classList.add('bg-primary/20', 'text-primary', 'border-primary/50');
+        btn.classList.remove('bg-surface-variant/50', 'text-on-surface-variant', 'border-white/10');
+    }
+
+    // Take top 8 hotspots by CRS (these form the patrol route)
+    const routeHotspots = window.allHotspots
+        .sort((a, b) => (b.crs || 0) - (a.crs || 0))
+        .slice(0, 8);
+
+    // Build coordinate array for the route line
+    const coordinates = routeHotspots.map(h => [h.centroid_lng, h.centroid_lat]);
+    // Close the loop back to start
+    coordinates.push(coordinates[0]);
+
+    // Wait for map style to be loaded
+    const addRoute = () => {
+        // Remove existing route layers if any
+        if (mapInstance.getSource('patrol-route')) {
+            mapInstance.removeLayer('patrol-route-glow');
+            mapInstance.removeLayer('patrol-route-line');
+            mapInstance.removeLayer('patrol-route-arrows');
+            mapInstance.removeSource('patrol-route');
+        }
+
+        // Add route source
+        mapInstance.addSource('patrol-route', {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                geometry: { type: 'LineString', coordinates: coordinates }
+            }
+        });
+
+        // Glow layer (wider, transparent)
+        mapInstance.addLayer({
+            id: 'patrol-route-glow',
+            type: 'line',
+            source: 'patrol-route',
+            paint: {
+                'line-color': '#00DAF3',
+                'line-width': 12,
+                'line-opacity': 0.15,
+                'line-blur': 8
+            }
+        });
+
+        // Main route line (dashed for movement feel)
+        mapInstance.addLayer({
+            id: 'patrol-route-line',
+            type: 'line',
+            source: 'patrol-route',
+            paint: {
+                'line-color': '#00DAF3',
+                'line-width': 3,
+                'line-opacity': 0.9,
+                'line-dasharray': [2, 2]
+            }
+        });
+
+        // Arrow symbols along the route
+        mapInstance.addLayer({
+            id: 'patrol-route-arrows',
+            type: 'symbol',
+            source: 'patrol-route',
+            layout: {
+                'symbol-placement': 'line',
+                'symbol-spacing': 80,
+                'text-field': '▶',
+                'text-size': 12,
+                'text-rotation-alignment': 'map',
+                'text-allow-overlap': true,
+                'text-ignore-placement': true
+            },
+            paint: {
+                'text-color': '#00DAF3',
+                'text-opacity': 0.8
+            }
+        });
+
+        // Animate the dash offset to create movement
+        let dashOffset = 0;
+        function animateDash() {
+            if (!patrolRouteActive) return;
+            dashOffset = (dashOffset + 0.5) % 4;
+            mapInstance.setPaintProperty('patrol-route-line', 'line-dasharray', [2, 2]);
+            patrolAnimationFrame = requestAnimationFrame(animateDash);
+        }
+        animateDash();
+
+        // Add the moving patrol dot
+        addPatrolDot(coordinates);
+
+        // Add numbered stop markers
+        addStopMarkers(routeHotspots);
+    };
+
+    if (mapInstance.isStyleLoaded()) {
+        addRoute();
+    } else {
+        mapInstance.on('load', addRoute);
+    }
+}
+
+function addPatrolDot(coordinates) {
+    // Remove existing dot
+    if (patrolDotMarker) patrolDotMarker.remove();
+
+    // Create the glowing patrol dot element
+    const dotEl = document.createElement('div');
+    dotEl.innerHTML = `
+        <div style="position:relative; width:24px; height:24px;">
+            <div style="position:absolute; inset:0; border-radius:50%; background:rgba(57,255,20,0.3); animation: patrol-ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>
+            <div style="position:absolute; inset:4px; border-radius:50%; background:#39FF14; border:2px solid #fff; box-shadow:0 0 15px #39FF14;"></div>
+        </div>
+    `;
+
+    // Add the ping animation via a style tag if not already added
+    if (!document.getElementById('patrol-dot-style')) {
+        const style = document.createElement('style');
+        style.id = 'patrol-dot-style';
+        style.textContent = `
+            @keyframes patrol-ping {
+                0% { transform: scale(1); opacity: 0.8; }
+                75%, 100% { transform: scale(2.5); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    patrolDotMarker = new maplibregl.Marker({ element: dotEl })
+        .setLngLat(coordinates[0])
+        .addTo(mapInstance);
+
+    // Animate the dot along the route
+    let progress = 0;
+    const totalSegments = coordinates.length - 1;
+    const speed = 0.003; // Controls animation speed
+
+    function animateDot() {
+        if (!patrolRouteActive) return;
+
+        progress += speed;
+        if (progress >= totalSegments) progress = 0;
+
+        const segmentIndex = Math.floor(progress);
+        const segmentProgress = progress - segmentIndex;
+
+        const start = coordinates[segmentIndex];
+        const end = coordinates[Math.min(segmentIndex + 1, coordinates.length - 1)];
+
+        // Interpolate position
+        const lng = start[0] + (end[0] - start[0]) * segmentProgress;
+        const lat = start[1] + (end[1] - start[1]) * segmentProgress;
+
+        patrolDotMarker.setLngLat([lng, lat]);
+        requestAnimationFrame(animateDot);
+    }
+    requestAnimationFrame(animateDot);
+}
+
+// Store stop markers so we can remove them later
+window.patrolStopMarkers = [];
+
+function addStopMarkers(hotspots) {
+    // Remove old ones
+    if (window.patrolStopMarkers) {
+        window.patrolStopMarkers.forEach(m => m.remove());
+    }
+    window.patrolStopMarkers = [];
+
+    hotspots.forEach((h, i) => {
+        const el = document.createElement('div');
+        el.style.cssText = `
+            width: 22px; height: 22px; border-radius: 50%;
+            background: linear-gradient(135deg, #00DAF3, #0088cc);
+            border: 2px solid #fff; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 700; font-family: 'Inter', sans-serif;
+            box-shadow: 0 0 10px rgba(0,218,243,0.5);
+            cursor: pointer;
+        `;
+        el.innerText = (i + 1).toString();
+        el.title = `Stop ${i + 1}: ${h.top_junction || h.top_station || 'Hotspot'}`;
+
+        const popup = new maplibregl.Popup({ offset: 15, closeButton: false }).setHTML(`
+            <div style="color: #131315; font-family: Inter, sans-serif; padding: 4px;">
+                <strong style="font-size:13px;">Stop ${i + 1}</strong><br>
+                <span style="font-size:12px;">${h.top_junction || 'Unknown Junction'}</span><br>
+                <span style="font-size:12px; color:#d93025; font-weight:bold;">CRS: ${(h.crs || 0).toFixed(4)}</span>
+            </div>
+        `);
+
+        const marker = new maplibregl.Marker({ element: el })
+            .setLngLat([h.centroid_lng, h.centroid_lat])
+            .addTo(mapInstance);
+
+        el.addEventListener('mouseenter', () => popup.setLngLat([h.centroid_lng, h.centroid_lat]).addTo(mapInstance));
+        el.addEventListener('mouseleave', () => popup.remove());
+
+        window.patrolStopMarkers.push(marker);
+    });
+}
+
+function removePatrolRoute() {
+    patrolRouteActive = false;
+
+    // Update button style
+    const btn = document.getElementById('patrol-route-btn');
+    if (btn) {
+        btn.classList.remove('bg-primary/20', 'text-primary', 'border-primary/50');
+        btn.classList.add('bg-surface-variant/50', 'text-on-surface-variant', 'border-white/10');
+    }
+
+    // Cancel animation
+    if (patrolAnimationFrame) {
+        cancelAnimationFrame(patrolAnimationFrame);
+        patrolAnimationFrame = null;
+    }
+
+    // Remove dot
+    if (patrolDotMarker) {
+        patrolDotMarker.remove();
+        patrolDotMarker = null;
+    }
+
+    // Remove stop markers
+    if (window.patrolStopMarkers) {
+        window.patrolStopMarkers.forEach(m => m.remove());
+        window.patrolStopMarkers = [];
+    }
+
+    // Remove map layers and source
+    if (mapInstance) {
+        try {
+            if (mapInstance.getLayer('patrol-route-glow')) mapInstance.removeLayer('patrol-route-glow');
+            if (mapInstance.getLayer('patrol-route-line')) mapInstance.removeLayer('patrol-route-line');
+            if (mapInstance.getLayer('patrol-route-arrows')) mapInstance.removeLayer('patrol-route-arrows');
+            if (mapInstance.getSource('patrol-route')) mapInstance.removeSource('patrol-route');
+        } catch (e) { console.warn('Patrol route cleanup:', e); }
+    }
+}
