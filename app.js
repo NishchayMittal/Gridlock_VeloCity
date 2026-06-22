@@ -443,3 +443,159 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+
+// ==========================================
+// Voice Command System (Web Speech API)
+// ==========================================
+let voiceRecognition = null;
+let voiceActive = false;
+
+function toggleVoice() {
+    if (voiceActive) { stopVoice(); } else { startVoice(); }
+}
+
+function showVoiceOverlay(show) {
+    const overlay = document.getElementById('voice-overlay');
+    if (!overlay) return;
+    if (show) {
+        overlay.style.display = 'flex';
+        requestAnimationFrame(() => { overlay.style.opacity = '1'; overlay.style.pointerEvents = 'auto'; });
+    } else {
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+        setTimeout(() => overlay.style.display = 'none', 300);
+    }
+}
+
+function setVoiceStatus(text, color) {
+    const el = document.getElementById('voice-status');
+    if (el) { el.innerText = text; el.style.color = color || ''; }
+}
+
+function startVoice() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) { alert('Voice commands not supported. Use Chrome.'); return; }
+
+    voiceRecognition = new SpeechRecognition();
+    voiceRecognition.lang = 'en-IN';
+    voiceRecognition.continuous = false;
+    voiceRecognition.interimResults = true;
+    voiceActive = true;
+    showVoiceOverlay(true);
+    setVoiceStatus('Listening...', '#00DAF3');
+
+    const btn = document.getElementById('voice-btn');
+    const icon = document.getElementById('voice-icon');
+    if (btn) btn.classList.add('bg-primary/20', 'text-primary');
+    if (icon) icon.innerText = 'mic';
+
+    voiceRecognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        const isFinal = event.results[0].isFinal;
+        const transcriptEl = document.getElementById('voice-transcript');
+        if (transcriptEl) transcriptEl.innerText = '"' + transcript + '"';
+        if (isFinal) processVoiceCommand(transcript.toLowerCase().trim());
+    };
+
+    voiceRecognition.onerror = (event) => {
+        console.warn('Voice error:', event.error);
+        if (event.error === 'no-speech') {
+            setVoiceStatus('No speech detected. Try again.', '#FF4E7A');
+        } else {
+            setVoiceStatus('Error: ' + event.error, '#FF4E7A');
+        }
+        setTimeout(() => stopVoice(), 1500);
+    };
+
+    voiceRecognition.onend = () => {
+        if (voiceActive) setTimeout(() => stopVoice(), 2000);
+    };
+
+    voiceRecognition.start();
+}
+
+function stopVoice() {
+    voiceActive = false;
+    if (voiceRecognition) {
+        try { voiceRecognition.stop(); } catch(e) {}
+        voiceRecognition = null;
+    }
+    showVoiceOverlay(false);
+    const btn = document.getElementById('voice-btn');
+    const icon = document.getElementById('voice-icon');
+    if (btn) btn.classList.remove('bg-primary/20', 'text-primary');
+    if (icon) icon.innerText = 'mic';
+    const transcriptEl = document.getElementById('voice-transcript');
+    if (transcriptEl) transcriptEl.innerText = '';
+}
+
+function processVoiceCommand(command) {
+    console.log('Voice command:', command);
+
+    // Refresh Data
+    if (command.includes('refresh') || command.includes('reload') || command.includes('update data')) {
+        setVoiceStatus('Refreshing data...', '#00DAF3');
+        fetchData();
+        return;
+    }
+
+    // Generate Patrol Brief
+    if (command.includes('patrol') || command.includes('brief') || command.includes('generate')) {
+        setVoiceStatus('Navigating to Patrol Brief...', '#00DAF3');
+        setTimeout(() => { window.location.href = 'patrol.html'; }, 800);
+        return;
+    }
+
+    // Reset / Show All
+    if (command.includes('reset') || command.includes('show all') || command.includes('clear')) {
+        setVoiceStatus('Resetting map to all hotspots', '#00DAF3');
+        const si = document.getElementById('search-input');
+        if (si) { si.value = ''; si.dispatchEvent(new Event('input')); }
+        if (window.allHotspots) renderMap(window.allHotspots);
+        return;
+    }
+
+    // Go Home
+    if (command.includes('go home') || command.includes('home page') || command.includes('homepage')) {
+        setVoiceStatus('Going to homepage...', '#00DAF3');
+        setTimeout(() => { window.location.href = 'index.html'; }, 800);
+        return;
+    }
+
+    // Show [Location] - catch-all search
+    const locationKeywords = ['show', 'search', 'find', 'go to', 'navigate', 'zoom', 'where is', 'locate'];
+    let searchTerm = command;
+    for (const kw of locationKeywords) { searchTerm = searchTerm.replace(kw, '').trim(); }
+    searchTerm = searchTerm.replace(/\b(me|the|to|in|at|on|for)\b/g, '').replace(/\s+/g, ' ').trim();
+
+    if (searchTerm.length > 1) {
+        setVoiceStatus('Searching: "' + searchTerm + '"', '#00DAF3');
+        const si = document.getElementById('search-input');
+        if (si) { si.value = searchTerm; si.dispatchEvent(new Event('input')); }
+
+        // Fly map to first matching hotspot
+        if (window.allHotspots && mapInstance) {
+            const match = window.allHotspots.find(h =>
+                (h.top_junction && h.top_junction.toLowerCase().includes(searchTerm)) ||
+                (h.top_station && h.top_station.toLowerCase().includes(searchTerm))
+            );
+            if (match) {
+                mapInstance.flyTo({
+                    center: [match.centroid_lng, match.centroid_lat],
+                    zoom: 15, pitch: 45, duration: 2000
+                });
+            }
+        }
+        return;
+    }
+
+    setVoiceStatus('Command not recognized. Try again.', '#FF4E7A');
+}
+
+// Keyboard shortcut: Press V to toggle voice (when not typing in an input)
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'v' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        toggleVoice();
+    }
+});

@@ -189,13 +189,33 @@
             </div>
             <div class="hidden md:flex items-center relative w-96">
                 <span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
-                <input id="search-input" class="w-full bg-surface-container/50 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-on-surface font-label-md text-label-md focus:outline-none focus:border-surface-tint focus:ring-1 focus:ring-surface-tint transition-all placeholder:text-on-surface-variant/50" placeholder="Search locations, zones, or IDs..." type="text"/>
+                <input id="search-input" class="w-full bg-surface-container/50 border border-white/10 rounded-lg py-2 pl-10 pr-12 text-on-surface font-label-md text-label-md focus:outline-none focus:border-surface-tint focus:ring-1 focus:ring-surface-tint transition-all placeholder:text-on-surface-variant/50" placeholder="Search locations, zones, or IDs..." type="text"/>
+                <!-- Voice Command Button -->
+                <button id="voice-btn" onclick="toggleVoice()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-primary/10 transition-all" title="Voice Command (say 'Hey Velocity')">
+                    <span class="material-symbols-outlined text-[20px]" id="voice-icon">mic</span>
+                </button>
             </div>
             <div class="flex items-center gap-6">
                 <!-- Notifications removed as requested -->
             </div>
         </div>
     </header>
+
+    <!-- Voice Command Overlay -->
+    <div id="voice-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm pointer-events-none opacity-0 transition-all duration-300" style="display:none;">
+        <div class="flex flex-col items-center gap-6">
+            <!-- Animated Pulse Ring -->
+            <div class="relative">
+                <div id="voice-ring" class="w-28 h-28 rounded-full border-2 border-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-5xl">mic</span>
+                </div>
+                <div id="voice-pulse" class="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-30"></div>
+            </div>
+            <p class="text-on-surface font-label-md text-label-md tracking-widest uppercase" id="voice-status">Listening...</p>
+            <p class="text-primary font-code-md text-code-md max-w-md text-center h-6" id="voice-transcript"></p>
+            <p class="text-on-surface-variant text-xs mt-2 max-w-sm text-center">Try: "Show MG Road" · "Refresh data" · "Generate patrol brief" · "Reset map"</p>
+        </div>
+    </div>
 
     <!-- Main Content Canvas -->
     <main class="pt-24 pb-28 md:pb-12 px-4 md:px-8 md:ml-64 max-w-[1600px] mx-auto min-h-screen">
