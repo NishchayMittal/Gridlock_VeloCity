@@ -26,8 +26,8 @@ VeloCity leverages machine learning and spatial clustering to process raw violat
 
 3. **AI Patrol Operations (`patrol.html`)**
    - **Predictive AI Modeling**: LightGBM-powered forecasting that predicts *tomorrow's* highest-risk intersections before they happen.
+   - **Optimized Patrol Routing**: Automatically plots and animates a highly strategic enforcement route connecting the top predicted hotspots directly on the 3D map.
    - **LLM Patrol Briefs**: Generative AI (Llama 3 via Groq) automatically synthesizes daily intelligence into actionable, localized patrol briefs for field officers.
-   - **Diagnostic Fleet HUD**: Live simulated tracking of core inference systems and autonomous UAV drone fleets.
 
 ---
 
