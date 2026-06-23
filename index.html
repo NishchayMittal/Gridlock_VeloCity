@@ -67,94 +67,134 @@
         }
     </style>
 </head>
-<body class="relative min-h-screen flex flex-col items-center justify-start pt-32 pb-20 overflow-x-hidden">
+<body class="bg-[#050608] text-white min-h-screen flex flex-col overflow-x-hidden font-[Inter] selection:bg-[#00DAF3]/20 selection:text-[#00DAF3]">
     
     <!-- 3D Background Container -->
     <div id="threejs-container" class="fixed inset-0 w-full h-full -z-20 opacity-40 mix-blend-screen pointer-events-none"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full p-6 flex justify-between items-center z-50">
-        <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-3xl">shield</span>
-            <span class="text-2xl font-bold tracking-tight">VeloCity</span>
+    <!-- Top Bar -->
+    <header class="fixed top-0 left-0 w-full z-50 h-16 flex items-center justify-between px-6 md:px-12 bg-[#050608]/70 backdrop-blur-xl border-b border-white/[0.05]">
+        <div class="flex items-center gap-3 group">
+            <div class="w-8 h-8 rounded-lg bg-[#00DAF3]/10 flex items-center justify-center border border-[#00DAF3]/30 group-hover:shadow-[0_0_15px_rgba(0,218,243,0.4)] transition-all">
+                <span class="material-symbols-outlined text-[#00DAF3] text-[20px]" style="font-variation-settings:'FILL' 1;">shield</span>
+            </div>
+            <span class="font-bold text-lg tracking-wide text-white">VeloCity</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <main class="flex flex-col items-center text-center z-10 px-4 max-w-4xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8 animate-pulse">
-            <span class="w-2 h-2 rounded-full bg-primary"></span>
-            Live in Bengaluru
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex items-center gap-4 text-xs font-mono text-white/50 tracking-widest">
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#00DAF3] animate-pulse"></span> BENGALURU NODE</span>
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#39FF14]"></span> SYS ONLINE</span>
+            </div>
+            <a href="dashboard.html" class="bg-[#00DAF3]/10 text-[#00DAF3] border border-[#00DAF3]/30 px-5 py-2 rounded-md text-sm font-semibold hover:bg-[#00DAF3]/20 hover:shadow-[0_0_20px_rgba(0,218,243,0.2)] transition-all flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">terminal</span>
+                COMMAND CENTER
+            </a>
         </div>
-        
-        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-            Shift from Reactive to <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">Proactive Enforcement</span>
-        </h1>
-        
-        <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl leading-relaxed">
-            AI-driven parking intelligence that detects illegal hotspots, quantifies traffic impact, and dispatches officers before gridlock happens.
-        </p>
+    </header>
 
-        <a href="dashboard.html" class="glass-btn px-8 py-4 rounded-xl text-primary font-semibold text-lg flex items-center gap-3 group">
-            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">rocket_launch</span>
-            Enter Command Center
-        </a>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col w-full z-10 pt-24 px-6 md:px-12 max-w-[1600px] mx-auto">
+        
+        <!-- Hero Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center mt-8 md:mt-16 mb-24">
+            
+            <div class="flex flex-col items-start text-left" style="animation: fadeIn 0.8s ease-out;">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/[0.03] border border-white/[0.08] text-white/60 font-mono text-[10px] uppercase tracking-[0.2em] mb-6">
+                    <span class="material-symbols-outlined text-[14px] text-[#00DAF3]">satellite_alt</span>
+                    Next-Gen Traffic Intelligence
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1] text-white">
+                    Proactive <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00DAF3] to-[#0088aa] text-glow">Enforcement.</span>
+                </h1>
+                
+                <p class="text-lg text-white/50 mb-10 max-w-lg leading-relaxed font-light border-l-2 border-[#00DAF3]/30 pl-4">
+                    AI-driven parking intelligence that detects illegal hotspots, quantifies traffic impact, and dispatches officers before gridlock happens.
+                </p>
 
-        <!-- Feature Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 text-left w-full">
-            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
-                <span class="material-symbols-outlined text-primary text-3xl mb-4">3d_rotation</span>
-                <h3 class="text-lg font-semibold mb-2">Live 3D Hotspot Map</h3>
-                <p class="text-gray-400 text-sm">Visualize congestion risks with real-time glowing thermal mapping and interactive time-lapse simulations.</p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <a href="dashboard.html" class="bg-[#00DAF3] text-[#00363d] px-8 py-3.5 rounded-lg font-bold text-sm hover:bg-white transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,218,243,0.3)]">
+                        <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                        Initialize System
+                    </a>
+                    <a href="patrol.html" class="bg-white/[0.05] border border-white/[0.1] text-white px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-white/[0.1] transition-colors flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+                        View AI Patrol
+                    </a>
+                </div>
             </div>
-            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
-                <span class="material-symbols-outlined text-primary text-3xl mb-4">smart_toy</span>
-                <h3 class="text-lg font-semibold mb-2">AI Patrol Briefs</h3>
-                <p class="text-gray-400 text-sm">Automatically generate strategic patrol orders for field officers using cutting-edge LLMs.</p>
+
+            <!-- Feature HUD Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" style="animation: fadeIn 0.8s ease-out 0.2s both;">
+                <div class="bg-[#0a0b10]/60 backdrop-blur-md border border-white/[0.05] p-6 rounded-xl hover:bg-[#0a0b10]/80 transition-colors group relative overflow-hidden h-full">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#00DAF3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined text-[#00DAF3] text-2xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity">3d_rotation</span>
+                    <h3 class="text-white font-semibold text-sm mb-2 tracking-wide uppercase">Live 3D Hotspot Map</h3>
+                    <p class="text-white/40 text-xs leading-relaxed">Real-time glowing thermal mapping and interactive time-lapse traffic simulations.</p>
+                </div>
+                
+                <div class="bg-[#0a0b10]/60 backdrop-blur-md border border-white/[0.05] p-6 rounded-xl hover:bg-[#0a0b10]/80 transition-colors group relative overflow-hidden h-full">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#39FF14]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined text-[#39FF14] text-2xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity">smart_toy</span>
+                    <h3 class="text-white font-semibold text-sm mb-2 tracking-wide uppercase">AI Patrol Briefs</h3>
+                    <p class="text-white/40 text-xs leading-relaxed">Automatically generate strategic patrol orders for officers using Groq LLM.</p>
+                </div>
+                
+                <div class="bg-[#0a0b10]/60 backdrop-blur-md border border-white/[0.05] p-6 rounded-xl hover:bg-[#0a0b10]/80 transition-colors group relative overflow-hidden sm:col-span-2">
+                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF4E7A]/50 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#FF4E7A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="flex items-start gap-4">
+                        <span class="material-symbols-outlined text-[#FF4E7A] text-2xl opacity-70 group-hover:opacity-100 transition-opacity">account_balance</span>
+                        <div>
+                            <h3 class="text-white font-semibold text-sm mb-2 tracking-wide uppercase">Revenue Recovery</h3>
+                            <p class="text-white/40 text-xs leading-relaxed max-w-md">Identify un-synced SCITA violations and recover millions in phantom revenue leakage caused by enforcement gaps.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
-                <span class="material-symbols-outlined text-[#d93025] text-3xl mb-4">account_balance</span>
-                <h3 class="text-lg font-semibold mb-2">Revenue Recovery</h3>
-                <p class="text-gray-400 text-sm">Identify un-synced SCITA violations and recover millions in phantom revenue leakage.</p>
-            </div>
+            
         </div>
 
         <!-- Live Impact Simulator -->
-        <div class="w-full mt-32 mb-12 flex flex-col items-center">
-            <h2 class="text-3xl font-bold mb-8 text-white text-glow tracking-tight">Live Enforcement Impact</h2>
+        <div class="w-full mb-24 flex flex-col items-center">
+            <div class="flex items-center gap-3 mb-10">
+                <span class="w-8 h-[1px] bg-[#00DAF3]/30"></span>
+                <h2 class="text-sm font-mono tracking-[0.3em] uppercase text-[#00DAF3]">Live Enforcement Impact</h2>
+                <span class="w-8 h-[1px] bg-[#00DAF3]/30"></span>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-1 w-full max-w-5xl bg-white/[0.05] border border-white/[0.08] rounded-2xl overflow-hidden p-[1px]">
                 <!-- WITHOUT VeloCity -->
-                <div class="bg-[#1a0f14]/80 border border-[#FF4E7A]/30 rounded-2xl p-8 backdrop-blur-md relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-[#FF4E7A]/5 to-transparent"></div>
+                <div class="bg-[#0a0b10]/90 backdrop-blur-xl p-8 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-[#FF4E7A]/30"></div>
                     <div class="relative z-10">
-                        <div class="flex items-center gap-2 mb-6 text-[#FF4E7A] font-semibold tracking-wide">
-                            <span class="material-symbols-outlined text-2xl">warning</span>
-                            WITHOUT VELOCITY
+                        <div class="flex items-center gap-2 mb-8 text-[#FF4E7A]/80 font-mono text-xs tracking-widest uppercase">
+                            <span class="material-symbols-outlined text-[16px]">warning</span>
+                            Without VeloCity
                         </div>
                         
-                        <div class="space-y-6">
+                        <div class="space-y-8">
                             <div>
-                                <div class="text-gray-400 text-sm mb-1 uppercase tracking-wider">Avg Response Time</div>
+                                <div class="text-white/30 text-[10px] font-mono mb-1 uppercase tracking-[0.15em]">Avg Response Time</div>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-4xl font-bold text-white font-mono" id="sim-bad-time">45.2</span>
-                                    <span class="text-gray-500 font-mono">mins</span>
+                                    <span class="text-4xl font-bold text-white tracking-tight" id="sim-bad-time">45.2</span>
+                                    <span class="text-white/30 font-mono text-xs">mins</span>
                                 </div>
                             </div>
                             
                             <div>
-                                <div class="text-gray-400 text-sm mb-1 uppercase tracking-wider">Phantom Revenue Leakage</div>
+                                <div class="text-white/30 text-[10px] font-mono mb-1 uppercase tracking-[0.15em]">Phantom Revenue Leakage</div>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-4xl font-bold text-white font-mono">₹<span id="sim-bad-rev">24,500</span></span>
-                                    <span class="text-gray-500 font-mono">/hr</span>
+                                    <span class="text-4xl font-bold text-white tracking-tight">₹<span id="sim-bad-rev">24,500</span></span>
+                                    <span class="text-white/30 font-mono text-xs">/hr</span>
                                 </div>
                             </div>
 
                             <div>
-                                <div class="text-gray-400 text-sm mb-1 uppercase tracking-wider">Unresolved Hotspots</div>
+                                <div class="text-white/30 text-[10px] font-mono mb-1 uppercase tracking-[0.15em]">Unresolved Hotspots</div>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-4xl font-bold text-[#FF4E7A] font-mono" id="sim-bad-spots">18</span>
+                                    <span class="text-4xl font-bold text-[#FF4E7A] tracking-tight" id="sim-bad-spots">18</span>
                                 </div>
                             </div>
                         </div>
@@ -162,49 +202,49 @@
                 </div>
 
                 <!-- WITH VeloCity -->
-                <div class="bg-[#0a1f24]/80 border border-[#00DAF3]/30 rounded-2xl p-8 backdrop-blur-md relative overflow-hidden group shadow-[0_0_30px_rgba(0,218,243,0.1)]">
-                    <div class="absolute inset-0 bg-gradient-to-br from-[#00DAF3]/5 to-transparent"></div>
+                <div class="bg-[#00DAF3]/[0.03] backdrop-blur-xl p-8 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-[#00DAF3] shadow-[0_0_10px_#00DAF3]"></div>
                     <!-- Scanning line animation -->
-                    <div class="absolute top-0 left-0 w-full h-1 bg-[#00DAF3] opacity-20 blur-[2px] animate-[scan_3s_ease-in-out_infinite]"></div>
+                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-b from-[#00DAF3]/30 to-transparent blur-[1px] animate-[scan_3s_ease-in-out_infinite]"></div>
 
                     <div class="relative z-10">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="flex items-center gap-2 text-[#00DAF3] font-semibold tracking-wide">
-                                <span class="material-symbols-outlined text-2xl">check_circle</span>
-                                WITH VELOCITY
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="flex items-center gap-2 text-[#00DAF3] font-mono text-xs tracking-widest uppercase">
+                                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                With VeloCity
                             </div>
-                            <span class="flex h-3 w-3 relative">
+                            <span class="flex h-2 w-2 relative">
                                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00DAF3] opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-3 w-3 bg-[#00DAF3]"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00DAF3]"></span>
                             </span>
                         </div>
                         
-                        <div class="space-y-6">
+                        <div class="space-y-8">
                             <div>
-                                <div class="text-gray-400 text-sm mb-1 uppercase tracking-wider">Avg Response Time</div>
+                                <div class="text-white/30 text-[10px] font-mono mb-1 uppercase tracking-[0.15em]">Avg Response Time</div>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-4xl font-bold text-white font-mono" id="sim-good-time">12.4</span>
-                                    <span class="text-[#00DAF3] font-mono text-sm ml-2 flex items-center">
-                                        <span class="material-symbols-outlined text-[16px]">trending_down</span> -72%
+                                    <span class="text-4xl font-bold text-white tracking-tight" id="sim-good-time">12.4</span>
+                                    <span class="text-[#00DAF3] font-mono text-[10px] ml-2 flex items-center bg-[#00DAF3]/10 px-1.5 py-0.5 rounded">
+                                        <span class="material-symbols-outlined text-[14px]">trending_down</span> -72%
                                     </span>
                                 </div>
                             </div>
                             
                             <div>
-                                <div class="text-gray-400 text-sm mb-1 uppercase tracking-wider">Revenue Recovered</div>
+                                <div class="text-white/30 text-[10px] font-mono mb-1 uppercase tracking-[0.15em]">Revenue Recovered</div>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-4xl font-bold text-white font-mono">₹<span id="sim-good-rev">85,200</span></span>
-                                    <span class="text-[#00DAF3] font-mono text-sm ml-2 flex items-center">
-                                        <span class="material-symbols-outlined text-[16px]">trending_up</span> +347%
+                                    <span class="text-4xl font-bold text-white tracking-tight">₹<span id="sim-good-rev">85,200</span></span>
+                                    <span class="text-[#00DAF3] font-mono text-[10px] ml-2 flex items-center bg-[#00DAF3]/10 px-1.5 py-0.5 rounded">
+                                        <span class="material-symbols-outlined text-[14px]">trending_up</span> +347%
                                     </span>
                                 </div>
                             </div>
 
                             <div>
-                                <div class="text-gray-400 text-sm mb-1 uppercase tracking-wider">Active Hotspots Managed</div>
+                                <div class="text-white/30 text-[10px] font-mono mb-1 uppercase tracking-[0.15em]">Active Hotspots Managed</div>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-4xl font-bold text-[#00DAF3] font-mono" id="sim-good-spots">3</span>
-                                    <span class="text-gray-400 text-sm ml-2">dispatched</span>
+                                    <span class="text-4xl font-bold text-[#00DAF3] tracking-tight text-glow" id="sim-good-spots">3</span>
+                                    <span class="text-white/30 font-mono text-xs ml-2">dispatched</span>
                                 </div>
                             </div>
                         </div>
@@ -213,6 +253,7 @@
             </div>
         </div>
     </main>
+
 
     <style>
         @keyframes scan {

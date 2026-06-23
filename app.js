@@ -58,7 +58,7 @@ async function fetchData() {
         }
 
         // 4. Fetch Predictions (for table)
-        const predictRes = await fetch(`${API_BASE}/predict-tomorrow?top_n=5`);
+        const predictRes = await fetch(`${API_BASE}/predict-tomorrow?top_n=15`);
         const predictData = await predictRes.json();
         window.allPredictions = predictData.top_predicted_hotspots; // Save for search
         if (document.getElementById('hotspots-tbody')) {
