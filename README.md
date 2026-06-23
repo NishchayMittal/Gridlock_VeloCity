@@ -22,11 +22,11 @@ VeloCity leverages machine learning and spatial clustering to process raw violat
 2. **The Command Center (`dashboard.html`)**
    - **Interactive 3D Hotspot Map**: A glassmorphic, state-of-the-art dashboard featuring a live, glowing thermal map (powered by Deck.gl) of the city's highest-risk parking zones.
    - **Voice-Command AI**: Integrated Web Speech API allows operators to voice-command the map (e.g., "Find hotspots in Electronic City").
+   - **Optimized Patrol Routing**: Automatically plots and animates a highly strategic enforcement route connecting the top hotspots directly on the 3D map.
    - **SCITA Revenue Recovery**: Identifies violations never reported to the central SCITA system and quantifies the resulting phantom revenue leakage, enabling recovery of lost fines.
 
 3. **AI Patrol Operations (`patrol.html`)**
    - **Predictive AI Modeling**: LightGBM-powered forecasting that predicts *tomorrow's* highest-risk intersections before they happen.
-   - **Optimized Patrol Routing**: Automatically plots and animates a highly strategic enforcement route connecting the top predicted hotspots directly on the 3D map.
    - **LLM Patrol Briefs**: Generative AI (Llama 3 via Groq) automatically synthesizes daily intelligence into actionable, localized patrol briefs for field officers.
 
 ---
