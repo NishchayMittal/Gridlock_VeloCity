@@ -92,6 +92,12 @@
             background-clip: padding-box;
             position: relative;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .glass-panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(0, 218, 243, 0.12), 0 4px 30px rgba(0,0,0,0.5);
+            border-color: rgba(0, 218, 243, 0.3);
         }
         .glass-panel::before {
             content: '';
@@ -111,6 +117,93 @@
                 linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
+
+        /* ── Staggered Entrance Animations ── */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .anim-enter {
+            opacity: 0;
+            animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .anim-delay-1 { animation-delay: 0.08s; }
+        .anim-delay-2 { animation-delay: 0.16s; }
+        .anim-delay-3 { animation-delay: 0.24s; }
+        .anim-delay-4 { animation-delay: 0.32s; }
+        .anim-delay-5 { animation-delay: 0.45s; }
+        .anim-delay-6 { animation-delay: 0.55s; }
+
+        /* ── Horizontal Scanning Line ── */
+        @keyframes scanLine {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .scan-line::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #00DAF3 30%, #00DAF3 70%, transparent 100%);
+            box-shadow: 0 0 8px #00DAF3, 0 0 20px rgba(0, 218, 243, 0.3);
+            animation: scanLine 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* ── Stat Card Inner Glow on Hover ── */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 218, 243, 0.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .stat-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Revenue card special glow */
+        .stat-card-danger::after {
+            background: radial-gradient(circle at center, rgba(217, 48, 37, 0.06) 0%, transparent 60%);
+        }
+
+        /* ── Sidebar Glow Border ── */
+        .sidebar-glow {
+            position: relative;
+        }
+        .sidebar-glow::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 1px; height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 218, 243, 0.2) 30%, rgba(0, 218, 243, 0.2) 70%, transparent 100%);
+        }
+
+        /* ── Number Count-Up Shimmer ── */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .number-shimmer {
+            background: linear-gradient(90deg, #fff 0%, #00DAF3 50%, #fff 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
         /* Thin Cyberpunk Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
@@ -126,6 +219,15 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 218, 243, 0.5); 
         }
+
+        /* ── Particle Canvas ── */
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -5;
+            pointer-events: none;
+            opacity: 0.4;
+        }
     </style>
     <!-- MapLibre GL JS & Deck.gl -->
     <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
@@ -137,234 +239,297 @@
     <!-- App Logic -->
     <script src="app.js?v=3" defer></script>
 </head>
-<body class="bg-background text-on-background min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
-    <!-- Global Loading Overlay -->
-    <div id="loading-overlay" class="fixed inset-0 bg-background/90 backdrop-blur-md z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
-        <span class="material-symbols-outlined text-[64px] text-surface-tint animate-spin mb-6 text-glow">autorenew</span>
-        <h2 class="font-headline-md text-headline-md text-surface-tint font-bold tracking-widest uppercase mb-2">Syncing Traffic Data</h2>
-        <p class="font-code-md text-code-md text-on-surface-variant animate-pulse">Running LightGBM forecasts and calculating CRS...</p>
+<body class="bg-[#050608] text-white min-h-screen overflow-x-hidden font-[Inter]">
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-[#050608]/95 backdrop-blur-xl z-[200] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative mb-8">
+            <div class="w-20 h-20 rounded-full border-2 border-[#00DAF3]/30 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[40px] text-[#00DAF3] animate-spin">autorenew</span>
+            </div>
+            <div class="absolute inset-0 rounded-full border-2 border-[#00DAF3] animate-ping opacity-20"></div>
+        </div>
+        <h2 class="text-[#00DAF3] font-bold tracking-[0.3em] uppercase text-sm mb-2">Syncing Traffic Data</h2>
+        <p class="text-white/40 text-xs animate-pulse tracking-wider">Running LightGBM forecasts and calculating CRS...</p>
     </div>
 
-    <!-- Global ambient glow -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-3/4 h-[500px] bg-surface-tint/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
-    
-    <!-- SideNavBar -->
-    <nav class="bg-surface/30 backdrop-blur-xl h-screen w-64 fixed left-0 top-0 border-r border-white/10 shadow-[0px_0px_15px_rgba(0,218,243,0.1)] z-40 hidden md:block">
-        <div class="flex flex-col h-full py-8">
-            <!-- Brand -->
-            <div class="px-6 mb-10 flex flex-col gap-1">
-                <span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">VeloCity</span>
-                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Command Center</span>
-            </div>
-            <!-- Nav Items -->
-            <ul class="flex flex-col gap-2 px-4 flex-1">
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors active:scale-95 duration-200 font-label-md text-label-md" href="index.html">
-                        <span class="material-symbols-outlined">home</span>
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary bg-primary/10 border-l-2 border-primary font-label-md text-label-md transition-colors" href="dashboard.html">
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors active:scale-95 duration-200 font-label-md text-label-md" href="patrol.html">
-                        <span class="material-symbols-outlined">smart_toy</span>
-                        AI Patrol
-                    </a>
-                </li>
-            </ul>
+    <!-- Particle Canvas Background -->
+    <canvas id="particle-canvas" class="fixed inset-0 z-0 pointer-events-none opacity-30"></canvas>
+
+    <!-- Ambient Glow Orbs -->
+    <div class="fixed top-[-200px] left-1/4 w-[600px] h-[600px] bg-[#00DAF3]/[0.04] blur-[150px] rounded-full pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-200px] right-1/4 w-[500px] h-[500px] bg-[#FF4E7A]/[0.03] blur-[150px] rounded-full pointer-events-none z-0"></div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  ICON SIDEBAR (slim, 72px)                  -->
+    <!-- ═══════════════════════════════════════════ -->
+    <nav class="hidden md:flex flex-col items-center w-[72px] h-screen fixed left-0 top-0 z-40 bg-[#0a0b10]/80 backdrop-blur-xl border-r border-white/[0.06] py-6 gap-2">
+        <!-- Brand Icon -->
+        <a href="index.html" class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00DAF3] to-[#0088aa] flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(0,218,243,0.3)] hover:shadow-[0_0_30px_rgba(0,218,243,0.5)] transition-all hover:scale-105">
+            <span class="material-symbols-outlined text-white text-xl" style="font-variation-settings:'FILL' 1;">shield</span>
+        </a>
+
+        <!-- Nav Icons -->
+        <a href="index.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/30 hover:text-white hover:bg-white/[0.06] transition-all group relative" title="Home">
+            <span class="material-symbols-outlined text-xl">home</span>
+            <span class="absolute left-14 bg-[#1a1c2a] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Home</span>
+        </a>
+        <a href="dashboard.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-[#00DAF3] bg-[#00DAF3]/10 transition-all relative" title="Dashboard">
+            <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1;">dashboard</span>
+            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#00DAF3] rounded-r-full shadow-[0_0_8px_#00DAF3]"></div>
+        </a>
+        <a href="patrol.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/30 hover:text-white hover:bg-white/[0.06] transition-all group relative" title="AI Patrol">
+            <span class="material-symbols-outlined text-xl">smart_toy</span>
+            <span class="absolute left-14 bg-[#1a1c2a] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">AI Patrol</span>
+        </a>
+
+        <!-- Bottom: Refresh -->
+        <div class="mt-auto">
+            <button onclick="fetchData()" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/30 hover:text-[#00DAF3] hover:bg-[#00DAF3]/10 transition-all" title="Refresh Data">
+                <span class="material-symbols-outlined text-xl">autorenew</span>
+            </button>
         </div>
     </nav>
 
-    <!-- TopNavBar -->
-    <header class="bg-surface/20 backdrop-blur-md h-16 fixed top-0 right-0 left-0 md:left-64 z-50 flex items-center justify-between px-8 border-b border-white/5">
-        <div class="flex items-center gap-4 w-full justify-between">
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  TOP BAR                                    -->
+    <!-- ═══════════════════════════════════════════ -->
+    <header class="fixed top-0 left-0 md:left-[72px] right-0 z-50 h-14 flex items-center justify-between px-5 bg-[#050608]/70 backdrop-blur-xl border-b border-white/[0.05]">
+        <!-- Left: Brand (mobile) + Title -->
+        <div class="flex items-center gap-3">
             <div class="md:hidden flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary">shield</span>
-                <span class="font-headline-md text-headline-md font-bold text-primary tracking-tight text-glow">VeloCity</span>
+                <span class="material-symbols-outlined text-[#00DAF3]">shield</span>
+                <span class="font-bold text-[#00DAF3]">VeloCity</span>
             </div>
-            <div class="hidden md:flex items-center relative w-96">
-                <span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
-                <input id="search-input" class="w-full bg-surface-container/50 border border-white/10 rounded-lg py-2 pl-10 pr-12 text-on-surface font-label-md text-label-md focus:outline-none focus:border-surface-tint focus:ring-1 focus:ring-surface-tint transition-all placeholder:text-on-surface-variant/50" placeholder="Search locations, zones, or IDs..." type="text"/>
-                <!-- Voice Command Button -->
-                <button id="voice-btn" onclick="toggleVoice()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-primary/10 transition-all" title="Voice Command (say 'Hey Velocity')">
-                    <span class="material-symbols-outlined text-[20px]" id="voice-icon">mic</span>
+            <div class="hidden md:flex items-center gap-2">
+                <span class="text-white/80 text-sm font-medium">Command Center</span>
+                <span class="text-white/20">·</span>
+                <span class="text-white/30 text-xs">Bengaluru Traffic Intelligence</span>
+            </div>
+        </div>
+        <!-- Right: Search + Voice -->
+        <div class="hidden md:flex items-center gap-3">
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-[18px]">search</span>
+                <input id="search-input" class="w-72 bg-white/[0.04] border border-white/[0.08] rounded-lg py-1.5 pl-9 pr-10 text-white text-sm focus:outline-none focus:border-[#00DAF3]/40 focus:ring-1 focus:ring-[#00DAF3]/20 transition-all placeholder:text-white/20" placeholder="Search locations..." type="text"/>
+                <button id="voice-btn" onclick="toggleVoice()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full flex items-center justify-center text-white/30 hover:text-[#00DAF3] hover:bg-[#00DAF3]/10 transition-all" title="Voice Command (V)">
+                    <span class="material-symbols-outlined text-[18px]" id="voice-icon">mic</span>
                 </button>
             </div>
-            <div class="flex items-center gap-6">
-                <!-- Notifications removed as requested -->
+            <div class="flex items-center gap-1.5 text-[10px] font-mono text-[#00DAF3]/60 bg-[#00DAF3]/[0.06] px-2.5 py-1 rounded-full border border-[#00DAF3]/10">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00DAF3] animate-pulse shadow-[0_0_6px_#00DAF3]"></span>
+                LIVE
             </div>
         </div>
     </header>
 
     <!-- Voice Command Overlay -->
-    <div id="voice-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm pointer-events-none opacity-0 transition-all duration-300" style="display:none;">
+    <div id="voice-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md pointer-events-none opacity-0 transition-all duration-300" style="display:none;">
         <div class="flex flex-col items-center gap-6">
-            <!-- Animated Pulse Ring -->
             <div class="relative">
-                <div id="voice-ring" class="w-28 h-28 rounded-full border-2 border-primary flex items-center justify-center">
-                    <span class="material-symbols-outlined text-primary text-5xl">mic</span>
+                <div id="voice-ring" class="w-28 h-28 rounded-full border-2 border-[#00DAF3] flex items-center justify-center bg-[#00DAF3]/5">
+                    <span class="material-symbols-outlined text-[#00DAF3] text-5xl">mic</span>
                 </div>
-                <div id="voice-pulse" class="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-30"></div>
+                <div id="voice-pulse" class="absolute inset-0 rounded-full border-2 border-[#00DAF3] animate-ping opacity-30"></div>
             </div>
-            <p class="text-on-surface font-label-md text-label-md tracking-widest uppercase" id="voice-status">Listening...</p>
-            <p class="text-primary font-code-md text-code-md max-w-md text-center h-6" id="voice-transcript"></p>
-            <p class="text-on-surface-variant text-xs mt-2 max-w-sm text-center">Try: "Show MG Road" · "Refresh data" · "Generate patrol brief" · "Reset map"</p>
+            <p class="text-white tracking-[0.2em] uppercase text-sm" id="voice-status">Listening...</p>
+            <p class="text-[#00DAF3] text-sm max-w-md text-center h-6 font-mono" id="voice-transcript"></p>
+            <p class="text-white/30 text-xs mt-1 max-w-sm text-center">Try: "Show MG Road" · "Refresh data" · "Generate patrol brief" · "Reset map"</p>
         </div>
     </div>
 
-    <!-- Main Content Canvas -->
-    <main class="pt-24 pb-28 md:pb-12 px-4 md:px-8 md:ml-64 max-w-[1600px] mx-auto min-h-screen">
-        <!-- Page Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-            <div>
-                <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">System Overview</h1>
-                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Live metrics from FastAPI Backend</p>
-            </div>
-            <div class="flex gap-3">
-                <button onclick="fetchData()" class="bg-primary/10 border border-primary/30 text-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary/20 transition-colors flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[18px]">autorenew</span>
-                    Refresh Data
-                </button>
-            </div>
-        </div>
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  MAIN CONTENT                               -->
+    <!-- ═══════════════════════════════════════════ -->
+    <main class="pt-16 pb-24 md:pb-6 md:pl-[72px] min-h-screen relative z-10">
 
-        <!-- Top Row: Summary Stats -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- ── STAT HUD STRIP ── -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-[1px] bg-white/[0.04] border-b border-white/[0.06]" style="animation: fadeIn 0.6s ease-out;">
             <!-- Stat 1: Total Violations -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <span class="material-symbols-outlined text-[64px] text-surface-tint">traffic</span>
-                </div>
-                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-                    <span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
-                    Total Violations Analyzed
-                </div>
-                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-total-violations">
-                    ...
-                </div>
-                <div class="font-label-sm text-label-sm text-error flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">warning</span>
-                    Historical Data
+            <div class="bg-[#0a0b10] p-5 group hover:bg-[#0e1018] transition-colors relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#00DAF3]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#FF4E7A] animate-pulse shadow-[0_0_6px_#FF4E7A]"></span>
+                        <span class="text-white/40 text-[11px] uppercase tracking-[0.15em]">Total Violations</span>
+                    </div>
+                    <div class="text-2xl lg:text-3xl font-bold tracking-tight text-white" id="stat-total-violations">...</div>
+                    <div class="text-[10px] text-white/20 mt-2 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[12px]">database</span>
+                        Historical Dataset
+                    </div>
                 </div>
             </div>
 
             <!-- Stat 2: SCITA Gap -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <span class="material-symbols-outlined text-[64px] text-surface-tint">visibility_off</span>
-                </div>
-                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    SCITA Intelligence Gap
-                </div>
-                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-scita-gap">
-                    ...
-                </div>
-                <div class="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">info</span>
-                    Not reported to central sys
+            <div class="bg-[#0a0b10] p-5 group hover:bg-[#0e1018] transition-colors relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#00DAF3]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#00DAF3] animate-pulse shadow-[0_0_6px_#00DAF3]"></span>
+                        <span class="text-white/40 text-[11px] uppercase tracking-[0.15em]">SCITA Intelligence Gap</span>
+                    </div>
+                    <div class="text-2xl lg:text-3xl font-bold tracking-tight text-white" id="stat-scita-gap">...</div>
+                    <div class="text-[10px] text-[#00DAF3]/40 mt-2 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[12px]">visibility_off</span>
+                        Not sent to central system
+                    </div>
                 </div>
             </div>
 
             <!-- Stat 3: Revenue Leakage -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group border border-[#d93025]/30 bg-[#d93025]/5 shadow-[0_0_15px_rgba(217,48,37,0.1)]">
-                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <span class="material-symbols-outlined text-[64px] text-[#d93025]">account_balance</span>
-                </div>
-                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-                    <span class="w-2 h-2 rounded-full bg-[#d93025] animate-pulse"></span>
-                    Phantom Revenue Leakage
-                </div>
-                <div class="font-display-lg text-display-lg text-[#d93025]" id="stat-revenue-leakage" style="text-shadow: 0 0 10px rgba(217,48,37,0.4);">
-                    ...
-                </div>
-                <div class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
-                    Fines lost due to SCITA gap (₹500/viol)
+            <div class="bg-[#0a0b10] p-5 group hover:bg-[#120a0a] transition-colors relative overflow-hidden border-x border-white/[0.02]">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#FF4E7A]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <!-- Danger Scanning Line -->
+                <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF4E7A]/50 to-transparent" style="animation: scanH 3s ease-in-out infinite;"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#d93025] animate-pulse shadow-[0_0_6px_#d93025]"></span>
+                        <span class="text-white/40 text-[11px] uppercase tracking-[0.15em]">Revenue Leakage</span>
+                    </div>
+                    <div class="text-2xl lg:text-3xl font-bold tracking-tight text-[#FF4E7A]" id="stat-revenue-leakage" style="text-shadow:0 0 20px rgba(255,78,122,0.3);">...</div>
+                    <div class="text-[10px] text-[#FF4E7A]/30 mt-2 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[12px]">trending_down</span>
+                        ₹500/violation · SCITA gap
+                    </div>
                 </div>
             </div>
 
-            <!-- Stat 4: Clusters -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <span class="material-symbols-outlined text-[64px] text-surface-tint">hub</span>
-                </div>
-                <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
-                    <span class="w-2 h-2 rounded-full bg-surface-tint animate-pulse"></span>
-                    Active Hotspots Detected
-                </div>
-                <div class="font-display-lg text-display-lg text-on-surface text-glow" id="stat-hotspots">
-                    ...
-                </div>
-                <div class="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                    System Nominal
+            <!-- Stat 4: Active Hotspots -->
+            <div class="bg-[#0a0b10] p-5 group hover:bg-[#0e1018] transition-colors relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#00DAF3]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#39FF14] animate-pulse shadow-[0_0_6px_#39FF14]"></span>
+                        <span class="text-white/40 text-[11px] uppercase tracking-[0.15em]">Active Hotspots</span>
+                    </div>
+                    <div class="text-2xl lg:text-3xl font-bold tracking-tight text-white" id="stat-hotspots">...</div>
+                    <div class="text-[10px] text-[#39FF14]/30 mt-2 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[12px]">check_circle</span>
+                        System Online
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Map Row: Heatmap -->
-        <div class="glass-panel rounded-xl p-6 mb-8 border-b border-white/5 relative z-0">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
-                    <span class="material-symbols-outlined text-surface-tint">3d_rotation</span>
-                    Live Hotspot Map (3D Forecast)
-                </h2>
-                <div class="flex gap-2">
-                    <button id="patrol-route-btn" onclick="togglePatrolRoute()" class="bg-surface-variant/50 text-on-surface-variant font-code-sm text-[12px] px-3 py-1 rounded-full border border-white/10 flex items-center gap-2 hover:border-primary/50 hover:text-primary transition-all cursor-pointer">
-                        <span class="material-symbols-outlined text-[14px]">route</span> Patrol Route
-                    </button>
-                    <span class="bg-primary/20 text-primary font-code-sm text-[12px] px-3 py-1 rounded-full border border-primary/30 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> LIVE
-                    </span>
-                </div>
+        <!-- ── HERO MAP ── -->
+        <div class="relative" style="animation: fadeIn 0.8s ease-out 0.2s both;">
+            <!-- Map Controls Bar -->
+            <div class="absolute top-4 right-4 z-20 flex items-center gap-2">
+                <button id="patrol-route-btn" onclick="togglePatrolRoute()" class="bg-[#0a0b10]/80 backdrop-blur-sm text-white/50 text-[11px] px-3 py-1.5 rounded-lg border border-white/[0.08] flex items-center gap-1.5 hover:border-[#00DAF3]/30 hover:text-[#00DAF3] transition-all cursor-pointer">
+                    <span class="material-symbols-outlined text-[14px]">route</span> Patrol Route
+                </button>
             </div>
-            <div id="heatmap-container" class="w-full h-[450px] rounded-lg border border-white/10 z-0 relative overflow-hidden">
-                <!-- Time-Lapse Slider Overlay -->
-                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 w-[80%] max-w-2xl bg-[#131315]/90 backdrop-blur-xl border border-white/10 rounded-full py-3 px-6 flex items-center gap-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-                    <button id="timelapse-play" class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary hover:bg-primary/40 transition-colors border border-primary/30">
-                        <span class="material-symbols-outlined text-[20px]" id="timelapse-icon">play_arrow</span>
+
+            <!-- Map -->
+            <div id="heatmap-container" class="w-full h-[55vh] relative overflow-hidden border-b border-white/[0.06]">
+                <!-- Time-Lapse Overlay -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 w-[85%] max-w-xl bg-[#0a0b10]/90 backdrop-blur-xl border border-white/[0.08] rounded-full py-2.5 px-5 flex items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+                    <button id="timelapse-play" class="w-7 h-7 rounded-full bg-[#00DAF3]/10 text-[#00DAF3] hover:bg-[#00DAF3]/20 transition-colors flex items-center justify-center border border-[#00DAF3]/20">
+                        <span class="material-symbols-outlined text-[18px]" id="timelapse-icon">play_arrow</span>
                     </button>
-                    <div class="font-code-md text-on-surface font-bold text-[15px] w-14 text-center tracking-wider" id="timelapse-label">LIVE</div>
-                    <input type="range" id="timelapse-slider" min="0" max="23" value="12" class="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-primary">
+                    <div class="text-white font-mono font-bold text-sm w-12 text-center tracking-wider" id="timelapse-label">LIVE</div>
+                    <input type="range" id="timelapse-slider" min="0" max="23" value="12" class="flex-1 h-1 bg-white/10 rounded-full appearance-none cursor-pointer accent-[#00DAF3]">
+                    <div class="text-white/20 text-[10px] font-mono">24H</div>
                 </div>
             </div>
         </div>
 
-        <!-- Middle Row: Timeline Chart -->
-        <div class="glass-panel rounded-xl p-6 mb-8 border-b border-white/5 relative z-0">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
-                    <span class="material-symbols-outlined text-surface-tint">timeline</span>
-                    Violation Timeline (Daily)
-                </h2>
+        <!-- ── TIMELINE CHART ── -->
+        <div class="p-5 border-b border-white/[0.06] bg-[#0a0b10]/50" style="animation: fadeIn 0.8s ease-out 0.4s both;">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[#00DAF3]/50 text-lg">timeline</span>
+                    <span class="text-white/60 text-sm font-medium">Violation Timeline</span>
+                </div>
+                <span class="text-white/20 text-[10px] font-mono tracking-wider">DAILY DISTRIBUTION</span>
             </div>
-            <div class="h-64 w-full relative">
+            <div class="h-48 w-full relative">
                 <canvas id="timelineChart"></canvas>
             </div>
         </div>
-            <!-- End of Dashboard Content -->
+
     </main>
 
     <!-- Mobile Bottom Navigation -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/80 backdrop-blur-xl border-t border-white/10 z-50 px-6 py-4 pb-8 flex justify-between items-center shadow-[0px_-5px_15px_rgba(0,0,0,0.3)]">
-        <a href="index.html" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-2xl">home</span>
-            <span class="text-[10px] font-medium tracking-wide uppercase">Home</span>
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-[#0a0b10]/90 backdrop-blur-xl border-t border-white/[0.06] z-50 px-6 py-3 pb-6 flex justify-around items-center">
+        <a href="index.html" class="flex flex-col items-center gap-1 text-white/30 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-xl">home</span>
+            <span class="text-[9px] uppercase tracking-wider">Home</span>
         </a>
-        <a href="dashboard.html" class="flex flex-col items-center gap-1 text-primary transition-colors">
-            <span class="material-symbols-outlined text-2xl text-glow" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-            <span class="text-[10px] font-medium tracking-wide uppercase text-glow">Dashboard</span>
+        <a href="dashboard.html" class="flex flex-col items-center gap-1 text-[#00DAF3] transition-colors relative">
+            <div class="absolute -top-3 w-8 h-[2px] bg-[#00DAF3] rounded-full shadow-[0_0_8px_#00DAF3]"></div>
+            <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1;">dashboard</span>
+            <span class="text-[9px] uppercase tracking-wider">Dashboard</span>
         </a>
-        <a href="patrol.html" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-2xl">smart_toy</span>
-            <span class="text-[10px] font-medium tracking-wide uppercase">Patrol</span>
+        <a href="patrol.html" class="flex flex-col items-center gap-1 text-white/30 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-xl">smart_toy</span>
+            <span class="text-[9px] uppercase tracking-wider">Patrol</span>
         </a>
     </nav>
+
+    <!-- Animation Keyframes -->
+    <style>
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scanH { 0%,100% { transform: translateX(-100%); } 50% { transform: translateX(100%); } }
+    </style>
+
+    <!-- Particle System -->
+    <script>
+    (function() {
+        const canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const COUNT = 50;
+
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize();
+        window.addEventListener('resize', resize);
+
+        for (let i = 0; i < COUNT; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.25,
+                vy: (Math.random() - 0.5) * 0.25,
+                r: Math.random() * 1.2 + 0.3,
+                o: Math.random() * 0.3 + 0.05,
+                c: Math.random() > 0.8 ? [255,78,122] : [0,218,243]
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                const a = particles[i];
+                for (let j = i+1; j < particles.length; j++) {
+                    const b = particles[j];
+                    const d = Math.hypot(a.x-b.x, a.y-b.y);
+                    if (d < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0,218,243,${0.04*(1-d/120)})`;
+                        ctx.lineWidth = 0.4;
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.o})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    })();
+    </script>
 </body>
 </html>

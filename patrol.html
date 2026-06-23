@@ -137,98 +137,103 @@
     <!-- App Logic -->
     <script src="app.js?v=3" defer></script>
 </head>
-<body class="bg-background text-on-background min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
-    <!-- Global Loading Overlay -->
-    <div id="loading-overlay" class="fixed inset-0 bg-background/90 backdrop-blur-md z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
-        <span class="material-symbols-outlined text-[64px] text-surface-tint animate-spin mb-6 text-glow">autorenew</span>
-        <h2 class="font-headline-md text-headline-md text-surface-tint font-bold tracking-widest uppercase mb-2">Syncing Traffic Data</h2>
-        <p class="font-code-md text-code-md text-on-surface-variant animate-pulse">Running LightGBM forecasts and calculating CRS...</p>
+<body class="bg-[#050608] text-white min-h-screen overflow-x-hidden font-[Inter]">
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-[#050608]/95 backdrop-blur-xl z-[200] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative mb-8">
+            <div class="w-20 h-20 rounded-full border-2 border-[#00DAF3]/30 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[40px] text-[#00DAF3] animate-spin">autorenew</span>
+            </div>
+            <div class="absolute inset-0 rounded-full border-2 border-[#00DAF3] animate-ping opacity-20"></div>
+        </div>
+        <h2 class="text-[#00DAF3] font-bold tracking-[0.3em] uppercase text-sm mb-2">Syncing Traffic Data</h2>
+        <p class="text-white/40 text-xs animate-pulse tracking-wider">Running LightGBM forecasts and calculating CRS...</p>
     </div>
 
-    <!-- Global ambient glow -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-3/4 h-[500px] bg-surface-tint/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
-    
-    <!-- SideNavBar -->
-    <nav class="bg-surface/30 backdrop-blur-xl h-screen w-64 fixed left-0 top-0 border-r border-white/10 shadow-[0px_0px_15px_rgba(0,218,243,0.1)] z-40 hidden md:block">
-        <div class="flex flex-col h-full py-8">
-            <!-- Brand -->
-            <div class="px-6 mb-10 flex flex-col gap-1">
-                <span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">VeloCity</span>
-                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Command Center</span>
-            </div>
-            <!-- Nav Items -->
-            <ul class="flex flex-col gap-2 px-4 flex-1">
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors active:scale-95 duration-200 font-label-md text-label-md" href="index.html">
-                        <span class="material-symbols-outlined">home</span>
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors active:scale-95 duration-200 font-label-md text-label-md" href="dashboard.html">
-                        <span class="material-symbols-outlined">dashboard</span>
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary bg-primary/10 border-l-2 border-primary font-label-md text-label-md transition-colors" href="patrol.html">
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
-                        AI Patrol
-                    </a>
-                </li>
-            </ul>
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas" class="fixed inset-0 z-0 pointer-events-none opacity-30"></canvas>
+
+    <!-- Ambient Glow Orbs -->
+    <div class="fixed top-[-200px] right-1/4 w-[500px] h-[500px] bg-[#00DAF3]/[0.03] blur-[150px] rounded-full pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-100px] left-1/3 w-[400px] h-[400px] bg-[#FF4E7A]/[0.02] blur-[120px] rounded-full pointer-events-none z-0"></div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  ICON SIDEBAR (same as dashboard)           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <nav class="hidden md:flex flex-col items-center w-[72px] h-screen fixed left-0 top-0 z-40 bg-[#0a0b10]/80 backdrop-blur-xl border-r border-white/[0.06] py-6 gap-2">
+        <a href="index.html" class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00DAF3] to-[#0088aa] flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(0,218,243,0.3)] hover:shadow-[0_0_30px_rgba(0,218,243,0.5)] transition-all hover:scale-105">
+            <span class="material-symbols-outlined text-white text-xl" style="font-variation-settings:'FILL' 1;">shield</span>
+        </a>
+        <a href="index.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/30 hover:text-white hover:bg-white/[0.06] transition-all group relative" title="Home">
+            <span class="material-symbols-outlined text-xl">home</span>
+            <span class="absolute left-14 bg-[#1a1c2a] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Home</span>
+        </a>
+        <a href="dashboard.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/30 hover:text-white hover:bg-white/[0.06] transition-all group relative" title="Dashboard">
+            <span class="material-symbols-outlined text-xl">dashboard</span>
+            <span class="absolute left-14 bg-[#1a1c2a] text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Dashboard</span>
+        </a>
+        <a href="patrol.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-[#00DAF3] bg-[#00DAF3]/10 transition-all relative" title="AI Patrol">
+            <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1;">smart_toy</span>
+            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#00DAF3] rounded-r-full shadow-[0_0_8px_#00DAF3]"></div>
+        </a>
+        <div class="mt-auto">
+            <button onclick="fetchData()" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/30 hover:text-[#00DAF3] hover:bg-[#00DAF3]/10 transition-all" title="Refresh Data">
+                <span class="material-symbols-outlined text-xl">autorenew</span>
+            </button>
         </div>
     </nav>
 
-    <!-- TopNavBar -->
-    <header class="bg-surface/20 backdrop-blur-md h-16 fixed top-0 right-0 left-0 md:left-64 z-50 flex items-center justify-between px-8 border-b border-white/5">
-        <div class="flex items-center gap-4 w-full justify-between">
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  TOP BAR                                    -->
+    <!-- ═══════════════════════════════════════════ -->
+    <header class="fixed top-0 left-0 md:left-[72px] right-0 z-50 h-14 flex items-center justify-between px-5 bg-[#050608]/70 backdrop-blur-xl border-b border-white/[0.05]">
+        <div class="flex items-center gap-3">
             <div class="md:hidden flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary">shield</span>
-                <span class="font-headline-md text-headline-md font-bold text-primary tracking-tight text-glow">VeloCity</span>
+                <span class="material-symbols-outlined text-[#00DAF3]">shield</span>
+                <span class="font-bold text-[#00DAF3]">VeloCity</span>
             </div>
-            <div class="hidden md:flex items-center relative w-96">
-                <span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
-                <input id="search-input" class="w-full bg-surface-container/50 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-on-surface font-label-md text-label-md focus:outline-none focus:border-surface-tint focus:ring-1 focus:ring-surface-tint transition-all placeholder:text-on-surface-variant/50" placeholder="Search locations, zones, or IDs..." type="text"/>
+            <div class="hidden md:flex items-center gap-2">
+                <span class="text-white/80 text-sm font-medium">AI Patrol Operations</span>
+                <span class="text-white/20">·</span>
+                <span class="text-white/30 text-xs">Autonomous Briefing System</span>
             </div>
-            <div class="flex items-center gap-6">
-                <!-- Notifications removed as requested -->
+        </div>
+        <div class="hidden md:flex items-center gap-3">
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-[18px]">search</span>
+                <input id="search-input" class="w-72 bg-white/[0.04] border border-white/[0.08] rounded-lg py-1.5 pl-9 pr-4 text-white text-sm focus:outline-none focus:border-[#00DAF3]/40 focus:ring-1 focus:ring-[#00DAF3]/20 transition-all placeholder:text-white/20" placeholder="Search locations..." type="text"/>
+            </div>
+            <div class="flex items-center gap-1.5 text-[10px] font-mono text-[#00DAF3]/60 bg-[#00DAF3]/[0.06] px-2.5 py-1 rounded-full border border-[#00DAF3]/10">
+                <span class="material-symbols-outlined text-[12px]">smart_toy</span>
+                AI READY
             </div>
         </div>
     </header>
 
-    <!-- Main Content Canvas -->
-    <main class="pt-24 pb-28 md:pb-12 px-4 md:px-8 md:ml-64 max-w-[1600px] mx-auto min-h-screen">
-        <!-- Page Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-            <div>
-                <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">System Overview</h1>
-                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Live metrics from FastAPI Backend</p>
-                <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">AI Patrol Operations</h1>
-                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Autonomous surveillance and intervention briefing</p>
-            </div>
-            <div class="flex gap-3">
-                <button onclick="fetchData()" class="bg-primary/10 border border-primary/30 text-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary/20 transition-colors flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[18px]">autorenew</span>
-                    Refresh Data
-                </button>
-            </div>
-        </div>
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  MAIN CONTENT                               -->
+    <!-- ═══════════════════════════════════════════ -->
+    <main class="pt-16 pb-24 md:pb-6 md:pl-[72px] min-h-screen relative z-10">
 
-        <!-- Bottom Row: Split Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Left: Top Hotspots Data Table -->
-            <div class="glass-panel rounded-xl lg:col-span-2 overflow-hidden flex flex-col">
-                <div class="p-6 border-b border-white/5 flex justify-between items-center bg-surface-container/30">
-                    <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
-                        <span class="material-symbols-outlined text-error">local_fire_department</span>
-                        Top Hotspots (Forecasted)
-                    </h2>
+        <!-- ── SPLIT LAYOUT: Table + AI Brief ── -->
+        <div class="grid grid-cols-1 lg:grid-cols-5 min-h-[calc(100vh-56px)]">
+
+            <!-- LEFT: Predictions Table (3 cols) -->
+            <div class="lg:col-span-3 border-r border-white/[0.04] flex flex-col" style="animation: fadeIn 0.6s ease-out;">
+                <!-- Table Header -->
+                <div class="p-5 border-b border-white/[0.06] bg-[#0a0b10]/50 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[#FF4E7A] text-lg">local_fire_department</span>
+                        <span class="text-white/80 text-sm font-medium">Top Predicted Hotspots</span>
+                    </div>
+                    <span class="text-white/20 text-[10px] font-mono tracking-wider">24H FORECAST</span>
                 </div>
-                <div class="overflow-x-auto p-2 flex-1">
+
+                <!-- Table -->
+                <div class="overflow-x-auto flex-1">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="font-label-sm text-label-sm text-on-surface-variant border-b border-white/5">
+                            <tr class="text-white/30 text-[11px] uppercase tracking-[0.15em] border-b border-white/[0.06]">
                                 <th class="p-4 font-normal">Location</th>
                                 <th class="p-4 font-normal">Station</th>
                                 <th class="p-4 font-normal">Predicted 24h</th>
@@ -236,46 +241,129 @@
                                 <th class="p-4 font-normal">CRS Score</th>
                             </tr>
                         </thead>
-                        <tbody id="hotspots-tbody" class="font-body-md text-body-md text-on-surface">
-                            <tr><td colspan="5" class="p-4 text-center">Loading predictions...</td></tr>
+                        <tbody id="hotspots-tbody" class="text-sm text-white/70">
+                            <tr><td colspan="5" class="p-6 text-center text-white/20">
+                                <span class="material-symbols-outlined animate-spin text-[#00DAF3] mb-2 block">autorenew</span>
+                                Loading predictions...
+                            </td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Right: AI Patrol Brief -->
-            <div class="glass-panel rounded-xl p-6 flex flex-col relative overflow-hidden bg-surface-container-lowest/50 border border-surface-tint/20">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-surface-tint/0 via-surface-tint to-surface-tint/0 opacity-50"></div>
-                <h2 class="font-headline-md text-headline-md text-surface-tint flex items-center gap-2 mb-4 font-code-md tracking-wider">
-                    <span class="material-symbols-outlined">smart_toy</span>
-                    &gt;_ AI_PATROL_BRIEF
-                </h2>
-                <div id="ai-brief-content" class="flex-1 font-code-md text-code-md text-on-surface-variant space-y-4 overflow-y-auto max-h-[400px]">
-                    <p class="text-on-surface">&gt; Awaiting command...</p>
+            <!-- RIGHT: AI Patrol Brief Terminal (2 cols) -->
+            <div class="lg:col-span-2 flex flex-col bg-[#08090d]" style="animation: fadeIn 0.8s ease-out 0.2s both;">
+                <!-- Terminal Header -->
+                <div class="p-5 border-b border-white/[0.06] flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="flex gap-1.5">
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#FF4E7A]/60"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#FBBC04]/60"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#39FF14]/60"></div>
+                        </div>
+                        <span class="text-[#00DAF3]/70 text-xs font-mono ml-2 tracking-wider">>_ AI_PATROL_BRIEF</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#39FF14] animate-pulse shadow-[0_0_6px_#39FF14]"></span>
+                        <span class="text-white/20 text-[10px] font-mono">GROQ LLM</span>
+                    </div>
                 </div>
-                <div class="mt-6 flex gap-3">
-                    <button id="btn-generate-brief" onclick="generateBrief()" class="flex-1 bg-surface-tint text-on-primary font-label-md text-label-md py-2 px-4 rounded hover:bg-primary transition-colors font-bold shadow-[0_0_10px_rgba(0,218,243,0.3)]">
-                        Generate Brief (Groq)
+
+                <!-- Terminal Body -->
+                <div id="ai-brief-content" class="flex-1 p-5 font-mono text-sm text-white/50 space-y-3 overflow-y-auto max-h-[calc(100vh-200px)] leading-relaxed" style="scrollbar-width:thin; scrollbar-color: rgba(0,218,243,0.2) transparent;">
+                    <p class="text-[#00DAF3]/60">> Awaiting command...</p>
+                    <p class="text-white/20">> Type "Generate Brief" to dispatch AI patrol orders based on live hotspot data.</p>
+                </div>
+
+                <!-- Terminal Footer: Generate Button -->
+                <div class="p-4 border-t border-white/[0.06] bg-[#0a0b10]/50">
+                    <button id="btn-generate-brief" onclick="generateBrief()" class="w-full py-3 px-4 rounded-lg bg-[#00DAF3]/10 border border-[#00DAF3]/20 text-[#00DAF3] font-semibold text-sm hover:bg-[#00DAF3]/20 hover:shadow-[0_0_20px_rgba(0,218,243,0.15)] transition-all flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-lg">smart_toy</span>
+                        Generate Patrol Brief
+                        <span class="text-[10px] text-white/20 ml-1 font-mono">(Groq)</span>
                     </button>
                 </div>
             </div>
+
         </div>
     </main>
 
     <!-- Mobile Bottom Navigation -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/80 backdrop-blur-xl border-t border-white/10 z-50 px-6 py-4 pb-8 flex justify-between items-center shadow-[0px_-5px_15px_rgba(0,0,0,0.3)]">
-        <a href="index.html" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-2xl">home</span>
-            <span class="text-[10px] font-medium tracking-wide uppercase">Home</span>
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-[#0a0b10]/90 backdrop-blur-xl border-t border-white/[0.06] z-50 px-6 py-3 pb-6 flex justify-around items-center">
+        <a href="index.html" class="flex flex-col items-center gap-1 text-white/30 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-xl">home</span>
+            <span class="text-[9px] uppercase tracking-wider">Home</span>
         </a>
-        <a href="dashboard.html" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-2xl">dashboard</span>
-            <span class="text-[10px] font-medium tracking-wide uppercase">Dashboard</span>
+        <a href="dashboard.html" class="flex flex-col items-center gap-1 text-white/30 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-xl">dashboard</span>
+            <span class="text-[9px] uppercase tracking-wider">Dashboard</span>
         </a>
-        <a href="patrol.html" class="flex flex-col items-center gap-1 text-primary transition-colors">
-            <span class="material-symbols-outlined text-2xl text-glow" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
-            <span class="text-[10px] font-medium tracking-wide uppercase text-glow">Patrol</span>
+        <a href="patrol.html" class="flex flex-col items-center gap-1 text-[#00DAF3] transition-colors relative">
+            <div class="absolute -top-3 w-8 h-[2px] bg-[#00DAF3] rounded-full shadow-[0_0_8px_#00DAF3]"></div>
+            <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1;">smart_toy</span>
+            <span class="text-[9px] uppercase tracking-wider">Patrol</span>
         </a>
     </nav>
+
+    <!-- Animations -->
+    <style>
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        /* Table row hover */
+        #hotspots-tbody tr { transition: background-color 0.2s; }
+        #hotspots-tbody tr:hover { background-color: rgba(0, 218, 243, 0.04); }
+        #hotspots-tbody tr td:first-child { border-left: 2px solid transparent; transition: border-color 0.2s; }
+        #hotspots-tbody tr:hover td:first-child { border-left-color: #00DAF3; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,218,243,0.15); border-radius: 4px; }
+    </style>
+
+    <!-- Particle System -->
+    <script>
+    (function() {
+        const canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const COUNT = 40;
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize();
+        window.addEventListener('resize', resize);
+        for (let i = 0; i < COUNT; i++) {
+            particles.push({
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
+                r: Math.random() * 1 + 0.3, o: Math.random() * 0.25 + 0.05,
+                c: Math.random() > 0.85 ? [255,78,122] : [0,218,243]
+            });
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                const a = particles[i];
+                for (let j = i+1; j < particles.length; j++) {
+                    const b = particles[j];
+                    const d = Math.hypot(a.x-b.x, a.y-b.y);
+                    if (d < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0,218,243,${0.03*(1-d/100)})`;
+                        ctx.lineWidth = 0.3;
+                        ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                    }
+                }
+            }
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.o})`; ctx.fill();
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    })();
+    </script>
 </body>
 </html>
